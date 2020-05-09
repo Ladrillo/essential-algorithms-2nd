@@ -13,7 +13,7 @@ function findLargest(integers) {
       largest = integers[i]
     }
   }
-  return largest                          // O(1)
+  return largest                              // O(1)
 }
 // Run time order RULE 1: O(N)
 // Run time order RULE 2: O(1 + N + 1) = O(2 + N)
@@ -27,6 +27,10 @@ it('finds the largest', () => {
 // RULE 4: If an algorithm performs an operation that takes O(f(N)) steps and for each
 // step it performs another O(g(N)) steps, then the algorithm's total performace is
 // O(f(N) x g(N))
+
+// RULE 5: Ignore constant multiples. If C is a constant,
+// O(C x f(N)) = O(f(N))
+// O(f(C x N)) = O(f(N))
 function hasDuplicatesNaive(integers) {
   for (let i in integers) {
     for (let j in integers) {
