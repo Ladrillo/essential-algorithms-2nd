@@ -58,8 +58,6 @@ function dividingPoint(intArr) {
   const num2 = intArr[intArr.length - 1]
   const num3 = intArr[Math.floor(intArr.length / 2)]
 
-  console.log(num1, num2, num3)
-
   if (num1 <= num2 && num3 <= num1) return num1
   if (num2 <= num3 && num1 <= num2) return num2
   return num3
@@ -68,9 +66,10 @@ function dividingPoint(intArr) {
 
 it('finds an acceptable dividing point', () => {
   const arr1 = [1, 2, 3, 4, 5, 7, 8, 9, 10]
-  console.log(dividingPoint(arr1))
+  const arr2 = [2, 7, 1, 8, 3, 5, 10, 9, 4]
+  expect(dividingPoint(arr1)).toBe(5)
+  expect(dividingPoint(arr2)).toBe(3)
 })
 
 // Log N - The algorithm is dividing the number of items it must
 // consider by a fixed fraction at every step
-
