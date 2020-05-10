@@ -50,7 +50,6 @@ it('finds whether duplicates', () => {
   expect(hasDuplicatesNaive(numbers2)).toBe(true)
 })
 
-
 // COMMON TUN TIME FUNCTIONS
 // 1 - Takes a constant ammount of time no matter how big the problem
 function dividingPoint(intArr) {
@@ -73,3 +72,6 @@ it('finds an acceptable dividing point', () => {
 
 // Log N - The algorithm is dividing the number of items it must
 // consider by a fixed fraction at every step
+
+// Calculate nodes N in a binary tree of height H -> N = (2^(H + 1)) - 1
+// Calculate height H in a binary tree of N nodes -> H = (log2 H^(N + 1)) -1
