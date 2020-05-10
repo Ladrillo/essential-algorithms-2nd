@@ -50,6 +50,9 @@ it('finds whether duplicates', () => {
   expect(hasDuplicatesNaive(numbers2)).toBe(true)
 })
 
+
+// COMMON TUN TIME FUNCTIONS
+// 1 - Takes a constant ammount of time no matter how big the problem
 function dividingPoint(intArr) {
   const num1 = intArr[0]
   const num2 = intArr[intArr.length - 1]
@@ -67,3 +70,7 @@ it('finds an acceptable dividing point', () => {
   const arr1 = [1, 2, 3, 4, 5, 7, 8, 9, 10]
   console.log(dividingPoint(arr1))
 })
+
+// Log N - The algorithm is dividing the number of items it must
+// consider by a fixed fraction at every step
+
