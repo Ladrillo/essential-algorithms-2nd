@@ -6,6 +6,15 @@
 
 // RULE 3: If an algorithm takes O(f(N) + g(N)) time and f(N) is greater than g(N)
 // for large N, then the algorithm's performance can be simplified to O(f(N)).
+
+// RULE 4: If an algorithm performs an operation that takes O(f(N)) steps and for each
+// step it performs another O(g(N)) steps, then the algorithm's total performace is
+// O(f(N) x g(N))
+
+// RULE 5: Ignore constant multiples. If C is a constant,
+// O(C x f(N)) = O(f(N))
+// O(f(C x N)) = O(f(N))
+
 function findLargest(integers) {
   let largest = integers[0]                   // O(1)
   for (let i = 1; i < integers.length; i++) { // O(N)
@@ -24,17 +33,22 @@ it('finds the largest', () => {
   expect(findLargest(numbers)).toBe(9)
 })
 
-// RULE 4: If an algorithm performs an operation that takes O(f(N)) steps and for each
-// step it performs another O(g(N)) steps, then the algorithm's total performace is
-// O(f(N) x g(N))
-
-// RULE 5: Ignore constant multiples. If C is a constant,
-// O(C x f(N)) = O(f(N))
-// O(f(C x N)) = O(f(N))
 function hasDuplicatesNaive(integers) {
   for (let i in integers) {
     for (let j in integers) {
       if ((i !== j) && (integers[i] === integers[j])) {
+        return true
+      }
+    }
+  }
+  return false
+}
+// Run time order RULE 4: O(N x N) = O(N^2)
+
+function hasDuplicatesNaiveABitImproved(integers) {
+  for (let i = 0; i < integers.length - 1; i++) {
+    for (let j = i + 1; j < integers.length; j++) {
+      if (integers[i] === integers[j]) {
         return true
       }
     }
@@ -48,6 +62,8 @@ it('finds whether duplicates', () => {
   let numbers2 = [0, 6, 4, 1, 9, 3, 4]
   expect(hasDuplicatesNaive(numbers1)).toBe(false)
   expect(hasDuplicatesNaive(numbers2)).toBe(true)
+  expect(hasDuplicatesNaiveABitImproved(numbers2)).toBe(true)
+  expect(hasDuplicatesNaiveABitImproved(numbers2)).toBe(true)
 })
 
 // COMMON TUN TIME FUNCTIONS
@@ -75,3 +91,8 @@ it('finds an acceptable dividing point', () => {
 
 // Calculate nodes N in a binary tree of height H -> N = (2^(H + 1)) - 1
 // Calculate height H in a binary tree of N nodes -> H = (log2 H^(N + 1)) -1
+
+// Common run-time functions in order of increasing speed of growth
+// 1 (constant), log N, sqrt(N), N, N^2, 2^N, N!
+
+// EXERCISE 1
