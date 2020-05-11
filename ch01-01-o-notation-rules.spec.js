@@ -1,17 +1,17 @@
-// RULE 1: If an algorithm performs a sequence of steps f(N) times for a mathematical
+// 🔥 RULE 1: If an algorithm performs a sequence of steps f(N) times for a mathematical
 // function f, then it takes O(f(N)) steps (order of N).
 
-// RULE 2: If an algorithm performs two operations that take O(f(N)) and O(g(N)) steps
+// 🔥 RULE 2: If an algorithm performs two operations that take O(f(N)) and O(g(N)) steps
 // for functions f and g, then the algorithm's total peformance is of O(f(N) + g(N)).
 
-// RULE 3: If an algorithm takes O(f(N) + g(N)) time and f(N) is greater than g(N)
+// 🔥 RULE 3: If an algorithm takes O(f(N) + g(N)) time and f(N) is greater than g(N)
 // for large N, then the algorithm's performance can be simplified to O(f(N)).
 
-// RULE 4: If an algorithm performs an operation that takes O(f(N)) steps and for each
+// 🔥 RULE 4: If an algorithm performs an operation that takes O(f(N)) steps and for each
 // step it performs another O(g(N)) steps, then the algorithm's total performace is
 // O(f(N) x g(N))
 
-// RULE 5: Ignore constant multiples. If C is a constant,
+// 🔥 RULE 5: Ignore constant multiples. If C is a constant,
 // O(C x f(N)) = O(f(N))
 // O(f(C x N)) = O(f(N))
 
@@ -67,7 +67,7 @@ it('finds whether duplicates', () => {
 })
 
 // COMMON TUN TIME FUNCTIONS
-// 1 - Takes a constant ammount of time no matter how big the problem
+// 🔥 1 (constant) - Takes a constant ammount of time no matter how big the problem
 function dividingPoint(intArr) {
   const num1 = intArr[0]
   const num2 = intArr[intArr.length - 1]
@@ -86,13 +86,14 @@ it('finds an acceptable dividing point', () => {
   expect(dividingPoint(arr2)).toBe(3)
 })
 
-// Log N - The algorithm is dividing the number of items it must
+// 🔥 Log N - The algorithm is dividing the number of items it must
 // consider by a fixed fraction at every step
 
+// 🔥 EXAMPLE OF A Log N:
 // Calculate nodes N in a binary tree of height H -> N = (2^(H + 1)) - 1
 // Calculate height H in a binary tree of N nodes -> H = (log2 H^(N + 1)) -1
 
-// Common run-time functions in order of increasing speed of growth
+// 🔥 Common run-time functions in order of increasing speed of growth
 // 1 (constant), log N, sqrt(N), N, N^2, 2^N, N!
 
-// EXERCISE 1
+// 🚀 EXERCISE 1 O(N^2) still but a bit better
