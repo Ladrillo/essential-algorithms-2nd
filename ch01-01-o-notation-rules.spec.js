@@ -102,15 +102,6 @@ it('finds an acceptable dividing point', () => {
 Computer can perform 10^6 steps per second.
 What is the largest problem (N) that can be tackled by each algorith
 in one second, minute, hour, day, week, year
-  constant
-    - it doesn't matter, any N
-  log N
-    - second
-    - minute
-    - hour
-    - day
-    - week
-    - year
   N^2
     - second N^2 = 10^6 x 1  -> N = 1000
     - minute N^2 = 10^6 x 60 -> N = 7746
@@ -118,4 +109,12 @@ in one second, minute, hour, day, week, year
     - day
     - week
     - year
+*/
+// 🚀 EXERCISE 3 1500xN vs. 30xN^2
+/*
+N=1   -> 1500 vs. 30 steps
+N=10  -> 15000 vs. 3000 steps
+N=50  -> 75000 vs. 75000 steps
+-------------------------------- after N=50 algo 1500xN takes fewer steps
+N=100 -> 150000 vs. 300000 steps
 */
