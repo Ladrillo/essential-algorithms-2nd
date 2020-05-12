@@ -97,3 +97,25 @@ it('finds an acceptable dividing point', () => {
 // 1 (constant), log N, sqrt(N), N, N^2, 2^N, N!
 
 // 🚀 EXERCISE 1 O(N^2) still but a bit better
+// 🚀 EXERCISE 2
+/*
+Computer can perform 10^6 steps per second.
+What is the largest problem (N) that can be tackled by each algorith
+in one second, minute, hour, day, week, year
+  constant
+    - it doesn't matter, any N
+  log N
+    - second
+    - minute
+    - hour
+    - day
+    - week
+    - year
+  N^2
+    - second N^2 = 10^6 x 1  -> N = 1000
+    - minute N^2 = 10^6 x 60 -> N = 7746
+    - hour N^2 = 10^6 x 3600 -> N = 60000
+    - day
+    - week
+    - year
+*/
