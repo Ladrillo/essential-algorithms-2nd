@@ -96,25 +96,25 @@ it('finds an acceptable dividing point', () => {
 // 🔥 Common run-time functions in order of increasing speed of growth
 // 1 (constant), log N, sqrt(N), N, N^2, 2^N, N!
 
-// 🚀 EXERCISE 1 O(N^2) still but a bit better
-// 🚀 EXERCISE 2
 /*
+🚀 EXERCISE 1 O(N^2) still but takes fewer steps actually than the non-improved
+
+🚀 EXERCISE 2
 Computer can perform 10^6 steps per second.
 What is the largest problem (N) that can be tackled by each algorith
 in one second, minute, hour, day, week, year
   N^2
-    - second N^2 = 10^6 x 1  -> N = 1000
-    - minute N^2 = 10^6 x 60 -> N = 7746
-    - hour N^2 = 10^6 x 3600 -> N = 60000
+    - second N^2 = 10^6 x 1    -> N =  1000
+    - minute N^2 = 10^6 x 60   -> N =  7746
+    - hour   N^2 = 10^6 x 3600 -> N = 60000
     - day
     - week
     - year
-*/
-// 🚀 EXERCISE 3 1500xN vs. 30xN^2
-/*
-N=1   -> 1500 vs. 30 steps
+
+🚀 EXERCISE 3 order of 1500xN vs. order of 30xN^2
+N=1   -> 1500  vs. 30 steps
 N=10  -> 15000 vs. 3000 steps
 N=50  -> 75000 vs. 75000 steps
--------------------------------- after N=50 algo 1500xN takes fewer steps
+-------------------------------- after N=50 algorithm 1500xN takes fewer steps
 N=100 -> 150000 vs. 300000 steps
 */
