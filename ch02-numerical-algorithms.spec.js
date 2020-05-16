@@ -1,17 +1,18 @@
-// Pseudorandom numbers generator
-// using linear congruency
+// Pseudorandom numbers created
+// using a linear congruential generator
 function* makeRandom(A, B, M) {
-  let x = 0
+  let x = 0 // value used to initialize is called the 🌾 seed 🌾
 
   while (true) {
-    x = ((A * x) + B) % M
     yield x
+    x = ((A * x) + B) % M
   }
 }
 
 it('returns random numbers', () => {
   const gen = makeRandom(7, 5, 11)
 
+  expect(gen.next().value).toBe(0) // first number of the series
   expect(gen.next().value).toBe(5)
   expect(gen.next().value).toBe(7)
   expect(gen.next().value).toBe(10)
@@ -21,6 +22,5 @@ it('returns random numbers', () => {
   expect(gen.next().value).toBe(6)
   expect(gen.next().value).toBe(3)
   expect(gen.next().value).toBe(4)
-  expect(gen.next().value).toBe(0)
-  // it repeats after here
+  expect(gen.next().value).toBe(0) // cycle starting again
 })
