@@ -10,7 +10,9 @@ function* makeRandom(A, B, M) {
 }
 
 // It's possible to save a ton of info using
-// a combination of PRNG and a particular seed
+// a combination of (1) a PRNG and (2) a particular seed.
+
+// PRNG can be biased or fair.
 
 it('returns random numbers', () => {
   const gen = makeRandom(7, 5, 11)
