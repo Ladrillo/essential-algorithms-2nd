@@ -1,4 +1,5 @@
-// Pseudorandom numbers created
+// 1- CREATING PSEUDORANDOM NUMBERS
+
 // using a linear congruential generator
 function* makeRandom(A, B, M) {
   let x = 0 // value used to initialize is called the 🌾 seed 🌾
@@ -28,11 +29,11 @@ it('returns random numbers', () => {
   expect(gen.next().value).toBe(0) // cycle starting again
 })
 
-// ENSURING FAIRNESS - PRNG can be biased or fair.
+// 2- ENSURING FAIRNESS - PRNG can be biased or fair.
 
-// 1- using a linear congruential generator for a specific range
+// Using a linear congruential generator for a specific range
 
-// 1A- The bad approach
+// A- The bad approach
 function* badRangeRandomGenerator(min, max) {
   const gen = makeRandom(7, 5, 11)
 
@@ -49,7 +50,7 @@ it('returns biased random numbers either 1 or 2', () => {
   expect(gen.next().value).toBe(2)
 })
 
-// 1B- A better approach
+// B better approach
 function* betterRangeGenerator(min, max) { // Not working
   const gen = makeRandom(7, 5, 11)
 
@@ -61,13 +62,12 @@ function* betterRangeGenerator(min, max) { // Not working
 it('returns non-biased random numbers either 1 or 2', () => {
   const gen = betterRangeGenerator(1, 2)
 
-  console.log(gen.next().value)
-  console.log(gen.next().value)
+  // console.log(gen.next().value)
+  // console.log(gen.next().value)
 })
 
 /*
-
-2- Getting fair reaults from a very loaded coin
+3- Getting fair reaults from a very loaded coin
 
 Heads -> 0.8
 Tails -> 0.2
@@ -81,5 +81,27 @@ Toss twice
 if ( Heads, Tails ) then Heads
 if ( Tails, Heads ) then Tails
 else toss twice again
-
 */
+
+// 4- REDUCING THE RANGE OF A PRNG - Simply ignore results falling out of scope
+
+// 5- EXPANDING THE RANGE OF A PRNG - Toss repeatedly to construct a binary number
+function whoWinsThePrize(friendsNumber) {
+  let binaryNumber = ''
+
+  for (let i = 0; i < (friendsNumber + 1) / 2; i++) {
+    const fairCoinToss = Math.floor(Math.random() * 2) + ''
+    binaryNumber = binaryNumber.concat(fairCoinToss)
+  }
+
+  console.log('attempt', binaryNumber)
+
+  const friendIndex = parseInt(binaryNumber, 2)
+
+  if (friendIndex + 1 > friendsNumber) {
+    return whoWinsThePrize(friendsNumber)
+  }
+  return friendIndex + 1
+}
+
+console.log('result', whoWinsThePrize(5))
