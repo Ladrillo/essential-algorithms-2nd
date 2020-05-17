@@ -33,7 +33,6 @@ it('returns random numbers', () => {
 // 1- using a linear congruential generator for a specific range
 function* badRangeRandomGenerator(min, max) {
   const gen = makeRandom(7, 5, 11)
-  let x = 0
 
   while (true) {
     const number = gen.next().value
