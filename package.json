@@ -4,7 +4,7 @@
   "description": "",
   "main": "ch01-01-o-notation-rules.js",
   "scripts": {
-    "test": "jest --watchAll"
+    "test": "jest --watch"
   },
   "keywords": [],
   "author": "",
