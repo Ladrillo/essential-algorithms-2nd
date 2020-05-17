@@ -58,11 +58,9 @@ function* betterRangeGenerator(min, max) { // Not working
     yield min + (number / 11) * (max - min)
   }
 }
-it('returns non-biased random numbers between 1 and 2', () => {
-  const gen = betterRangeGenerator(0, 2)
+it('returns non-biased random numbers either 1 or 2', () => {
+  const gen = betterRangeGenerator(1, 2)
 
-  console.log(gen.next().value)
-  console.log(gen.next().value)
   console.log(gen.next().value)
   console.log(gen.next().value)
 })
