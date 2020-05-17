@@ -64,3 +64,22 @@ it('returns non-biased random numbers either 1 or 2', () => {
   console.log(gen.next().value)
   console.log(gen.next().value)
 })
+
+/*
+
+2- Getting fair reaults from a very loaded coin
+
+Heads -> 0.8
+Tails -> 0.2
+
+Tossing twice:
+Probability of getting ( Heads, Tails ) -> 0.8 * 0.2 = 0.16
+Probability of getting ( Tails, Heads ) -> 0.2 * 0.8 = 0.16
+
+Algorithm:
+Toss twice
+if ( Heads, Tails ) then Heads
+if ( Tails, Heads ) then Tails
+else toss twice again
+
+*/
