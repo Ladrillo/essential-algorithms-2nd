@@ -12,8 +12,7 @@ function* makeRandom(A, B, M) {
 
 // It's possible to save a ton of info using
 // a combination of (1) a PRNG and (2) a particular seed.
-
-it('returns random numbers', () => {
+it('makeRandom returns random numbers', () => {
   const gen = makeRandom(7, 5, 11)
 
   expect(gen.next().value).toBe(0) // first number of the series
@@ -29,8 +28,9 @@ it('returns random numbers', () => {
   expect(gen.next().value).toBe(0) // cycle starting again
 })
 
-// 2- ENSURING FAIRNESS - PRNG can be biased or fair.
+// 2- ENSURING FAIRNESS
 
+// PRNG can be biased or fair
 // Using a linear congruential generator for a specific range
 
 // A- The bad approach
@@ -42,7 +42,7 @@ function* badRangeRandomGenerator(min, max) {
     yield min + number % (max - min + 1)
   }
 }
-it('returns biased random numbers either 1 or 2', () => {
+it('badRangeRandomGenerator returns biased random numbers either 1 or 2', () => {
   const gen = badRangeRandomGenerator(1, 2)
 
   expect(gen.next().value).toBe(1)
@@ -59,7 +59,7 @@ function* betterRangeGenerator(min, max) { // Not working
     yield min + (number / 11) * (max - min)
   }
 }
-it('returns non-biased random numbers either 1 or 2', () => {
+it('betterRangeGenerator returns non-biased random numbers either 1 or 2', () => {
   const gen = betterRangeGenerator(1, 2)
 
   // console.log(gen.next().value)
@@ -88,13 +88,13 @@ else toss twice again
 // 5- EXPANDING THE RANGE OF A PRNG - Toss repeatedly to construct a binary number
 function whoWinsThePrize(friendsNumber) {
   let binaryNumber = ''
+  // In production we'd use a fair PRNG, or a CSPRNG
+  const fairCoinTossGen = badRangeRandomGenerator(0, 1)
 
   for (let i = 0; i < (friendsNumber + 1) / 2; i++) {
-    const fairCoinToss = Math.floor(Math.random() * 2) + ''
+    const fairCoinToss = fairCoinTossGen.next().value + ''
     binaryNumber = binaryNumber.concat(fairCoinToss)
   }
-
-  console.log('attempt', binaryNumber)
 
   const friendIndex = parseInt(binaryNumber, 2)
 
@@ -103,5 +103,39 @@ function whoWinsThePrize(friendsNumber) {
   }
   return friendIndex + 1
 }
+it('whoWinsThePrize can decide winner using only coin', () => {
+  const numberOfFriends = 5
+  const winner = whoWinsThePrize(numberOfFriends)
+  expect(winner).toBe(4)
+})
 
-console.log('result', whoWinsThePrize(5))
+// 6- RANDOMIZING ARRAYS
+function randomizeArray(arr) {
+  // We don't want to cause mutations in the original arr
+  const result = [...arr]
+  // In production we'd use a fair PRNG, or a CSPRNG
+  const randomIndexGen = badRangeRandomGenerator(0, arr.length - 1)
+
+  for (let idx in result) {
+    const randomIdx = randomIndexGen.next().value
+    // Items that will swap positions
+    const item1 = result[idx]
+    const item2 = result[randomIdx]
+    // Perform the swap
+    result[idx] = item2
+    result[randomIdx] = item1
+  }
+
+  return result
+}
+
+it('randomizeArray randomizes arrays', () => {
+  const arr = [0, 1, 2, 3, 4]
+  const result = randomizeArray(arr)
+  expect(result).toEqual([3, 0, 2, 1, 4])
+})
+it('randomizeArray does not change the original array', () => {
+  const arr = [0, 1, 2, 3, 4]
+  randomizeArray(arr)
+  expect(arr).toEqual([0, 1, 2, 3, 4])
+})
