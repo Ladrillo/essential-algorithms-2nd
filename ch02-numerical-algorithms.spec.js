@@ -151,3 +151,23 @@ it('randomizeArray does not change the original array', () => {
   randomizeArray(arr)
   expect(arr).toEqual([0, 1, 2, 3, 4])
 })
+
+// We can use this technique for drawing multiple winners out of a list
+function drawWinners(entries, numberOfPrizes) {
+  const randomizedEntries = randomizeArray(entries)
+  const result = randomizedEntries.slice(0, numberOfPrizes)
+
+  return result
+}
+it('drawWinners gets the winners', () => {
+  const entries = ['Paul', 'Sarah', 'Peter', 'Luke', 'Samar']
+
+  let winners = drawWinners(entries, 5)
+  expect(winners).toEqual(['Luke', 'Paul', 'Peter', 'Sarah', 'Samar'])
+
+  winners = drawWinners(entries, 3)
+  expect(winners).toEqual(['Luke', 'Paul', 'Peter'])
+
+  winners = drawWinners(entries, 1)
+  expect(winners).toEqual(['Luke'])
+})
