@@ -28,6 +28,7 @@ it('makeRandom returns random numbers', () => {
   expect(gen.next().value).toBe(0) // cycle starting again
 })
 
+
 // 2- ENSURING FAIRNESS
 
 // PRNG can be biased or fair
@@ -66,6 +67,7 @@ it('betterRangeGenerator returns non-biased random numbers either 1 or 2', () =>
   // console.log(gen.next().value)
 })
 
+
 /*
 3- Getting fair reaults from a very loaded coin
 
@@ -83,7 +85,9 @@ if ( Tails, Heads ) then Tails
 else toss twice again
 */
 
+
 // 4- REDUCING THE RANGE OF A PRNG - Simply ignore results falling out of scope
+
 
 // 5- EXPANDING THE RANGE OF A PRNG - Toss repeatedly to construct a binary number
 function whoWinsThePrize(friendsNumber) {
@@ -104,10 +108,19 @@ function whoWinsThePrize(friendsNumber) {
   return friendIndex + 1
 }
 it('whoWinsThePrize can decide winner using only coin', () => {
-  const numberOfFriends = 5
-  const winner = whoWinsThePrize(numberOfFriends)
+  let numberOfFriends = 5
+  let winner = whoWinsThePrize(numberOfFriends)
   expect(winner).toBe(4)
+
+  numberOfFriends = 3
+  winner = whoWinsThePrize(numberOfFriends)
+  expect(winner).toBe(2)
+
+  numberOfFriends = 1
+  winner = whoWinsThePrize(numberOfFriends)
+  expect(winner).toBe(1)
 })
+
 
 // 6- RANDOMIZING ARRAYS
 function randomizeArray(arr) {
@@ -128,7 +141,6 @@ function randomizeArray(arr) {
 
   return result
 }
-
 it('randomizeArray randomizes arrays', () => {
   const arr = [0, 1, 2, 3, 4]
   const result = randomizeArray(arr)
