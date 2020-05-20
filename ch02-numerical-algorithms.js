@@ -37,7 +37,7 @@ function drawWalk(points, canvasSize) {
 {
   const numPoints = 200
   const canvasSize = 400
-  const stepSize = 20
+  const stepSize = 10
 
   const walk = makeRandoWalk(numPoints, canvasSize, stepSize)
   drawWalk(walk, canvasSize)
