@@ -181,15 +181,15 @@ function pickItemWithProbabilities(items, probabilities) {
   }
   const colors = ['red', 'green', 'blue']
   const probabilities = [0.7, 0.2, 0.1]
-  let iterations = 1000
+  let iterations = 100
   while (iterations > 0) {
     const pickedColor = pickItemWithProbabilities(colors, probabilities)
-    results = { ...results, [pickedColor]: results[pickedColor] + 1 }
+    results[pickedColor]++
     iterations--
   }
   console.log({
-    red: results.red / 1000,
-    green: results.green / 1000,
-    blue: results.blue / 1000,
+    red: results.red / 100,
+    green: results.green / 100,
+    blue: results.blue / 100,
   })
 }
