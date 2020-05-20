@@ -24,7 +24,7 @@ function drawWalk(points, canvasSize) {
   const canvas = document.createElement('canvas')
   canvas.width = canvasSize
   canvas.height = canvasSize
-  canvas.style.border = '1px solid black'
+  canvas.style.border = '1px dashed black'
   const ctx = canvas.getContext('2d')
 
   for (let idx = 0; idx < points.length - 1; idx++) {
