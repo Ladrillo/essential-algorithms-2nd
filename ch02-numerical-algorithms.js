@@ -20,21 +20,26 @@ function makeRandoWalk(numPoints, canvasSize, stepSize) {
   return listOfPoints
 }
 
-{
-  const numPoints = 200
-  const canvasSize = 400
-  const stepSize = 20
-
+function drawRandomWalk(numPoints, canvasSize, stepSize) {
   const canvas = document.createElement('canvas')
   canvas.width = canvasSize
   canvas.height = canvasSize
   canvas.style.border = '1px solid black'
   const ctx = canvas.getContext('2d')
+
   const points = makeRandoWalk(numPoints, canvasSize, stepSize)
+
   for (let idx = 0; idx < points.length - 1; idx++) {
     ctx.moveTo(...points[idx])
     ctx.lineTo(...points[idx + 1])
   }
   ctx.stroke()
   document.body.appendChild(canvas)
+}
+{
+  const numPoints = 200
+  const canvasSize = 400
+  const stepSize = 20
+
+  drawRandomWalk(numPoints, canvasSize, stepSize)
 }
