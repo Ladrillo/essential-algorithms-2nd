@@ -52,7 +52,7 @@ it('badRangeRandomGenerator returns biased random numbers either 1 or 2', () => 
 })
 
 // B better approach
-function* betterRangeGenerator(min, max) { // Not working
+function* betterRangeGenerator(min, max) { // Makes floats between min and max ???
   const gen = makeRandom(7, 5, 11)
 
   while (true) {
@@ -60,13 +60,6 @@ function* betterRangeGenerator(min, max) { // Not working
     yield min + (number / 11) * (max - min)
   }
 }
-it('betterRangeGenerator returns non-biased random numbers either 1 or 2', () => {
-  const gen = betterRangeGenerator(1, 2)
-
-  // console.log(gen.next().value)
-  // console.log(gen.next().value)
-})
-
 
 /*
 3- Getting fair reaults from a very loaded coin
@@ -171,3 +164,32 @@ it('drawWinners gets the winners', () => {
   winners = drawWinners(entries, 1)
   expect(winners).toEqual(['Luke'])
 })
+
+// 7- GENERATING NON-UNIFORM DISTRIBUTIONS
+function pickItemWithProbabilities(items, probabilities) {
+  let value = Math.random()
+  for (let itemIdx in items) {
+    value = value - probabilities[itemIdx]
+    if (value <= 0) return items[itemIdx]
+  }
+}
+{
+  let results = {
+    red: 0,
+    green: 0,
+    blue: 0,
+  }
+  const colors = ['red', 'green', 'blue']
+  const probabilities = [0.7, 0.2, 0.1]
+  let iterations = 10000
+  while (iterations > 0) {
+    const pickedColor = pickItemWithProbabilities(colors, probabilities)
+    results = { ...results, [pickedColor]: results[pickedColor] + 1 }
+    iterations--
+  }
+  console.log({
+    red: results.red / 1000,
+    green: results.green / 1000,
+    blue: results.blue / 1000,
+  })
+}
