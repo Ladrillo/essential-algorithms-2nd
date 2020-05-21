@@ -31,8 +31,6 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
 
   points.push(initial)
 
-  console.log('initial', initial)
-
   while (true) {
     const surroundingPoints = [
       [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]
@@ -56,7 +54,7 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
         return true
       }
     )
-    console.log('visitable', unvisitedSurroundingPoints)
+
     if (!unvisitedSurroundingPoints.length) {
       console.log('TOTAL TRAJECTORY', points)
       return points
@@ -95,7 +93,7 @@ function drawPoints({
 }
 
 {
-  const gridSize = [20, 20]
+  const gridSize = [3, 3]
   const stepSize = 20
   const points = makeNonIntersectingRandomWalk(...gridSize)
   drawPoints({ gridSize, stepSize, points })
