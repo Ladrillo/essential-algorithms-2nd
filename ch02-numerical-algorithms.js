@@ -28,13 +28,14 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
   let points = []
 
   let initial = [x, y]
-
+  debugger
   points.push(initial)
 
   while (true) {
     const surroundingPoints = [
       [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]
     ]
+    debugger
     // refactor to use reduce instead of two filters
     const surroundingPointsWithinBounds = surroundingPoints.filter(
       point => {
@@ -44,6 +45,7 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
         return xAcceptable && yAcceptable
       }
     )
+    debugger
     const unvisitedSurroundingPoints = surroundingPointsWithinBounds.filter(
       surroundingPoint => {
         for (let visitedPoint of points) {
@@ -55,6 +57,7 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
       }
     )
 
+    debugger
     if (!unvisitedSurroundingPoints.length) {
       console.log('TOTAL TRAJECTORY', points)
       return points
@@ -63,10 +66,14 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
     const randomMove = unvisitedSurroundingPoints[
       Math.floor(Math.random() * unvisitedSurroundingPoints.length)
     ]
+    debugger
 
-    points.push(randomMove)
+    x = randomMove[0]
+    y = randomMove[1]
+    debugger
 
-    [x, y] = randomMove
+    points.push([x, y])
+    debugger
   }
 }
 
@@ -93,7 +100,7 @@ function drawPoints({
 }
 
 {
-  const gridSize = [3, 3]
+  const gridSize = [30, 30]
   const stepSize = 20
   const points = makeNonIntersectingRandomWalk(...gridSize)
   drawPoints({ gridSize, stepSize, points })
