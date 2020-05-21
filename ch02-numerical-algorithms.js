@@ -28,14 +28,14 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
   let points = []
 
   let initial = [x, y]
-  debugger
+
   points.push(initial)
 
   while (true) {
     const surroundingPoints = [
       [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]
     ]
-    debugger
+
     // refactor to use reduce instead of two filters
     const surroundingPointsWithinBounds = surroundingPoints.filter(
       point => {
@@ -45,7 +45,7 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
         return xAcceptable && yAcceptable
       }
     )
-    debugger
+
     const unvisitedSurroundingPoints = surroundingPointsWithinBounds.filter(
       surroundingPoint => {
         for (let visitedPoint of points) {
@@ -57,7 +57,6 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
       }
     )
 
-    debugger
     if (!unvisitedSurroundingPoints.length) {
       console.log('TOTAL TRAJECTORY', points)
       return points
@@ -66,14 +65,11 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
     const randomMove = unvisitedSurroundingPoints[
       Math.floor(Math.random() * unvisitedSurroundingPoints.length)
     ]
-    debugger
 
     x = randomMove[0]
     y = randomMove[1]
-    debugger
 
     points.push([x, y])
-    debugger
   }
 }
 
@@ -90,6 +86,10 @@ function drawPoints({
   canvas.height = height * stepSize
   canvas.style.border = '1px dashed black'
   const ctx = canvas.getContext('2d')
+
+  ctx.beginPath();
+  ctx.arc(pointsAdjusted[0][0], pointsAdjusted[0][1], stepSize / 5, 0, 2 * Math.PI, true);
+  ctx.fill();
 
   for (let idx = 0; idx < pointsAdjusted.length - 1; idx++) {
     ctx.moveTo(...pointsAdjusted[idx])
