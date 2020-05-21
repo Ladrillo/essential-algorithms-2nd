@@ -72,7 +72,35 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
   }
 }
 
-makeNonIntersectingRandomWalk(2, 2)
+function drawPoints({
+  gridSize: [width, height],
+  stepSize,
+  points,
+}) {
+  const pointsAdjusted = points.map(
+    point => point.map(coord => coord * stepSize)
+  )
+  const canvas = document.createElement('canvas')
+  canvas.width = width * stepSize
+  canvas.height = height * stepSize
+  canvas.style.border = '1px dashed black'
+  const ctx = canvas.getContext('2d')
+
+  for (let idx = 0; idx < pointsAdjusted.length - 1; idx++) {
+    ctx.moveTo(...pointsAdjusted[idx])
+    ctx.lineTo(...pointsAdjusted[idx + 1])
+  }
+  ctx.stroke()
+  document.body.appendChild(canvas)
+}
+
+{
+  const gridSize = [20, 20]
+  const stepSize = 20
+  const points = makeNonIntersectingRandomWalk(...gridSize)
+  drawPoints({ gridSize, stepSize, points })
+}
+
 
 function drawWalk(points, canvasSize) {
   const canvas = document.createElement('canvas')
@@ -88,11 +116,11 @@ function drawWalk(points, canvasSize) {
   ctx.stroke()
   document.body.appendChild(canvas)
 }
-{
-  const numPoints = 200
-  const canvasSize = 400
-  const stepSize = 10
+// {
+//   const numPoints = 200
+//   const canvasSize = 400
+//   const stepSize = 10
 
-  const walk = makeRandoWalk(numPoints, canvasSize, stepSize)
-  drawWalk(walk, canvasSize)
-}
+//   const walk = makeRandoWalk(numPoints, canvasSize, stepSize)
+//   drawWalk(walk, canvasSize)
+// }
