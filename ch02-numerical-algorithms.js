@@ -11,6 +11,9 @@ function drawPoints({
   canvas.width = width * stepSize
   canvas.height = height * stepSize
   canvas.style.border = '1px dashed black'
+  canvas.style.padding = `${stepSize}px`
+  canvas.style.backgroundColor = '#f7faff'
+
   const ctx = canvas.getContext('2d')
 
   ctx.beginPath();
@@ -105,13 +108,13 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
 
 {
   const gridSize = [20, 20]
-  const stepSize = 20
+  const stepSize = 10
   const points = makeRandoWalk(30, ...gridSize)
   drawPoints({ gridSize, stepSize, points })
 }
 {
   const gridSize = [20, 20]
-  const stepSize = 20
+  const stepSize = 10
   const points = makeNonIntersectingRandomWalk(...gridSize)
   drawPoints({ gridSize, stepSize, points })
 }
