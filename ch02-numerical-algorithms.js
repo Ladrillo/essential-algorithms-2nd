@@ -20,6 +20,60 @@ function makeRandoWalk(numPoints, canvasSize, stepSize) {
   return listOfPoints
 }
 
+function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
+  // set starting point randomly
+  let x = Math.round(Math.random() * canvasLength)
+  let y = Math.round(Math.random() * canvasHeight)
+
+  let points = []
+
+  let initial = [x, y]
+
+  points.push(initial)
+
+  console.log('initial', initial)
+
+  while (true) {
+    const surroundingPoints = [
+      [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]
+    ]
+    // refactor to use reduce instead of two filters
+    const surroundingPointsWithinBounds = surroundingPoints.filter(
+      point => {
+        const [x, y] = point
+        const xAcceptable = (x >= 0 && x <= canvasLength)
+        const yAcceptable = (y >= 0 && y <= canvasHeight)
+        return xAcceptable && yAcceptable
+      }
+    )
+    const unvisitedSurroundingPoints = surroundingPointsWithinBounds.filter(
+      surroundingPoint => {
+        for (let visitedPoint of points) {
+          if (JSON.stringify(visitedPoint) === JSON.stringify(surroundingPoint)) {
+            return false
+          }
+        }
+        return true
+      }
+    )
+    console.log('visitable', unvisitedSurroundingPoints)
+    if (!unvisitedSurroundingPoints.length) {
+      console.log('TOTAL TRAJECTORY', points)
+      return points
+    }
+
+    const randomMove = unvisitedSurroundingPoints[
+      Math.floor(Math.random() * unvisitedSurroundingPoints.length)
+    ]
+
+    points.push(randomMove)
+
+    [x, y] = randomMove
+  }
+}
+
+makeNonIntersectingRandomWalk(2, 2)
+
 function drawWalk(points, canvasSize) {
   const canvas = document.createElement('canvas')
   canvas.width = canvasSize
