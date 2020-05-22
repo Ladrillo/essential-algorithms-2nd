@@ -10,7 +10,8 @@ function drawPoints({
   const canvas = document.createElement('canvas')
   canvas.width = width * stepSize
   canvas.height = height * stepSize
-  canvas.style.border = '1px dashed black'
+  canvas.style.border = '2px dashed black'
+  canvas.style.margin = `${stepSize / 2}px`
   canvas.style.padding = `${stepSize}px`
   canvas.style.backgroundColor = '#f7faff'
 
@@ -47,8 +48,6 @@ function makeRandoWalk(numPoints, canvasLength, canvasHeight) {
 
     listOfPoints.push([x, y])
   }
-
-  console.log('LIST', listOfPoints)
   return listOfPoints
 }
 
@@ -91,7 +90,6 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
     )
 
     if (!unvisitedSurroundingPoints.length) {
-      console.log('TOTAL TRAJECTORY', points)
       return points
     }
 
@@ -108,14 +106,15 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
 
 // COMPLETE SELF-AVOIDING WALK
 function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight) {
-  // set starting point randomly
   let initialX = Math.round(Math.random() * canvasLength)
   let initialY = Math.round(Math.random() * canvasHeight)
 
-  return extendWalk([[initialX, initialY]])
+  const totalPoints = (canvasLength + 1) * (canvasHeight + 1)
 
+  return extendWalk([[initialX, initialY]])
+ 
   function extendWalk(points) {
-    if (points.length === canvasLength * canvasHeight) {
+    if (points.length === totalPoints) {
       return points
     }
     const [x, y] = points[points.length - 1]
@@ -145,7 +144,7 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight) {
     }
     return unvisitedSurroundingPoints.reduce((acc, point) => {
       const walk = extendWalk([...acc, point])
-      if (walk.length >= acc.length) {
+      if (walk.length === totalPoints) {
         return walk
       }
       return acc
@@ -163,13 +162,11 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight) {
   const gridSize = [6, 6]
   const stepSize = 20
   const points = makeNonIntersectingRandomWalk(...gridSize)
-  console.log(points)
   drawPoints({ gridSize, stepSize, points })
 }
 {
-  const gridSize = [6, 6]
-  const stepSize = 20
+  const gridSize = [5, 5]
+  const stepSize = 25
   const points = makeCompleteSelfAvoidingWalk(...gridSize)
-  console.log(points)
   drawPoints({ gridSize, stepSize, points })
 }
