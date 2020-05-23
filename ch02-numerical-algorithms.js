@@ -145,29 +145,25 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
     const surroundingPoints = [
       [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]
     ]
-    const surroundingPointsWithinBounds = surroundingPoints.filter(
-      point => {
-        const [x, y] = point
-        const xAcceptable = (x >= 0 && x <= canvasLength)
-        const yAcceptable = (y >= 0 && y <= canvasHeight)
-        return xAcceptable && yAcceptable
-      }
-    )
-    const unvisitedSurroundingPoints = surroundingPointsWithinBounds.filter(
+    const availablePoints = surroundingPoints.filter(
       surroundingPoint => {
-        for (let visitedPoint of points) {
-          if (JSON.stringify(visitedPoint) === JSON.stringify(surroundingPoint)) {
-            return false
-          }
+        const [x, y] = surroundingPoint
+        // has to be within bounds
+        const xWithinBounds = (x >= 0 && x <= canvasLength)
+        const yWithinBounds = (y >= 0 && y <= canvasHeight)
+        if (!xWithinBounds || !yWithinBounds) return false
+        // can't be a previously visited point
+        for (let [visitedx, visitedY] of points) {
+          if (visitedx === x && visitedY === y) return false
         }
         return true
       }
     )
-    if (!unvisitedSurroundingPoints.length) {
+    if (!availablePoints.length) {
       log && console.log(`ARGH! Dead end after ${counter} recursive calls`)
       return points
     }
-    const unvisitedRandomized = randomizeArray(unvisitedSurroundingPoints)
+    const unvisitedRandomized = randomizeArray(availablePoints)
 
     for (let point of unvisitedRandomized) {
       const walk = extendWalk([...points, point])
