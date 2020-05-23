@@ -85,7 +85,7 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
       [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]
     ]
 
-    // refactor to use reduce instead of two filters
+    // refactor of this is in `makeCompleteSelfAvoidingWalk`
     const surroundingPointsWithinBounds = surroundingPoints.filter(
       point => {
         const [x, y] = point
