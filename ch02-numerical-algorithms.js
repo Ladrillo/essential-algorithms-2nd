@@ -103,7 +103,7 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
     points.push([x, y])
   }
 }
-
+var counter = 0
 // COMPLETE SELF-AVOIDING WALK
 function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight) {
   let initialX = Math.round(Math.random() * canvasLength)
@@ -112,8 +112,9 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight) {
   const totalPoints = (canvasLength + 1) * (canvasHeight + 1)
 
   return extendWalk([[initialX, initialY]])
- 
+
   function extendWalk(points) {
+    counter++
     if (points.length === totalPoints) {
       return points
     }
@@ -142,13 +143,13 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight) {
     if (!unvisitedSurroundingPoints.length) {
       return points
     }
-    return unvisitedSurroundingPoints.reduce((acc, point) => {
-      const walk = extendWalk([...acc, point])
+    for (let point of unvisitedSurroundingPoints) {
+      const walk = extendWalk([...points, point])
       if (walk.length === totalPoints) {
         return walk
       }
-      return acc
-    }, points)
+    }
+    return points
   }
 }
 
@@ -169,4 +170,5 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight) {
   const stepSize = 25
   const points = makeCompleteSelfAvoidingWalk(...gridSize)
   drawPoints({ gridSize, stepSize, points })
+  console.log('the recursive call ran times ', counter)
 }
