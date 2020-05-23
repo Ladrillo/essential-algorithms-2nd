@@ -58,6 +58,7 @@ function makeRandoWalk(numPoints, canvasLength, canvasHeight) {
 
   const getMovesWithinBounds = () => {
     const surroundingPoints = [
+      // TROUBLE, top, right, bottom, left
       [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]
     ]
     return surroundingPoints.filter(
@@ -71,7 +72,9 @@ function makeRandoWalk(numPoints, canvasLength, canvasHeight) {
 
   for (let i = 1; i < numPoints; i++) {
     const possibleMoves = getMovesWithinBounds()
-    const [nextX, nextY] = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]
+    const [nextX, nextY] = possibleMoves[
+      Math.floor(Math.random() * possibleMoves.length)
+    ]
 
     x = nextX
     y = nextY
@@ -112,6 +115,7 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
     )
 
     if (!availablePoints.length) {
+      // breaks loop on dead end
       return points
     }
 
