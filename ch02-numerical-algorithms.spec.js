@@ -206,11 +206,10 @@ function gcd(a, b) {
   }
   return a
 }
-it('werkz', () => {
+it('calculates greatest common divisor', () => {
   expect(gcd(4851, 3003)).toBe(231)
   expect(gcd(3003, 4851)).toBe(231)
   expect(gcd(8, 12)).toBe(4)
 })
 
 // EXPONENTIATION
-
