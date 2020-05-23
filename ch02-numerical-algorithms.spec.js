@@ -193,3 +193,11 @@ function pickItemWithProbabilities(items, probabilities) {
     blue: results.blue / 100,
   })
 }
+
+// 8 RANDOM WALKS (see other file)
+
+// 9- GREATEST COMMON DIVISORS
+// Euclid's algorithm
+function gcd(a, b) {
+  
+}
