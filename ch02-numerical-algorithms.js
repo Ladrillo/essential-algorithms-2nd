@@ -147,14 +147,13 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
     ]
     const availablePoints = surroundingPoints.filter(
       ([x, y]) => {
-        // has to be within bounds
-        const xWithinBounds = (x >= 0 && x <= canvasLength)
-        const yWithinBounds = (y >= 0 && y <= canvasHeight)
-        if (!xWithinBounds || !yWithinBounds) return false
         // can't be a previously visited point
         for (let [visitedX, visitedY] of points) {
           if (visitedX === x && visitedY === y) return false
         }
+        // has to be within canvas bounds
+        if (x < 0 || x > canvasLength) return false
+        if (y < 0 || y > canvasHeight) return false
         return true
       }
     )
