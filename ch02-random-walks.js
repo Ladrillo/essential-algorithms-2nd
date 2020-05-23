@@ -59,7 +59,7 @@ function randomizeArray(arr) {
 }
 
 // RANDOM WALK
-function makeRandoWalk(numPoints, canvasLength, canvasHeight) {
+function makeRandomWalk(numPoints, canvasLength, canvasHeight) {
   // set starting point randomly
   let x = Math.round(Math.random() * canvasLength)
   let y = Math.round(Math.random() * canvasHeight)
@@ -199,7 +199,7 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
 {
   const gridSize = [36,36]
   const stepSize = 20
-  const points = makeRandoWalk(2000, ...gridSize)
+  const points = makeRandomWalk(2000, ...gridSize)
   drawPoints({ gridSize, stepSize, points })
 }
 {
