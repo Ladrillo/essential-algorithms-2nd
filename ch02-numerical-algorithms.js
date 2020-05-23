@@ -63,9 +63,9 @@ function makeRandoWalk(numPoints, canvasLength, canvasHeight) {
   let x = Math.round(Math.random() * canvasLength)
   let y = Math.round(Math.random() * canvasHeight)
 
-  let walk = []
+  let points = []
 
-  walk.push([x, y])
+  points.push([x, y])
 
   const getMovesWithinBounds = () => {
     const surroundingPoints = [
@@ -90,9 +90,9 @@ function makeRandoWalk(numPoints, canvasLength, canvasHeight) {
     x = nextX
     y = nextY
 
-    walk.push([x, y])
+    points.push([x, y])
   }
-  return walk
+  return points
 }
 
 // NON-INTERSECTING RANDOM WALK
