@@ -16,14 +16,26 @@ function drawPoints({
 
   const ctx = canvas.getContext('2d')
 
-  ctx.beginPath();
-  ctx.arc(pointsAdjusted[0][0], pointsAdjusted[0][1], stepSize / 5, 0, 2 * Math.PI, true);
-  ctx.fill();
+  ctx.beginPath()
+  ctx.arc(
+    pointsAdjusted[0][0],
+    pointsAdjusted[0][1],
+    stepSize / 5, 0, 2 * Math.PI,
+    true
+  )
+  ctx.fill() // filled cicle first point
 
   for (let idx = 0; idx < pointsAdjusted.length - 1; idx++) {
     ctx.moveTo(...pointsAdjusted[idx])
     ctx.lineTo(...pointsAdjusted[idx + 1])
   }
+  // no fill circle last point
+  ctx.arc(
+    pointsAdjusted[pointsAdjusted.length - 1][0],
+    pointsAdjusted[pointsAdjusted.length - 1][1],
+    stepSize / 5, 0, 2 * Math.PI,
+    true,
+  )
   ctx.stroke()
   document.body.appendChild(canvas)
 }
