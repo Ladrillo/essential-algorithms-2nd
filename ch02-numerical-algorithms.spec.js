@@ -199,5 +199,15 @@ function pickItemWithProbabilities(items, probabilities) {
 // 9- GREATEST COMMON DIVISORS
 // Euclid's algorithm
 function gcd(a, b) {
-  
+  while (b !== 0) {
+    const remainder = a % b
+    a = b
+    b = remainder
+  }
+  return a
 }
+it('werkz', () => {
+  expect(gcd(4851, 3003)).toBe(231)
+  expect(gcd(3003, 4851)).toBe(231)
+  expect(gcd(8, 12)).toBe(4)
+})
