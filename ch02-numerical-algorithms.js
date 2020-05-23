@@ -85,33 +85,25 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
       [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]
     ]
 
-    // refactor of this is in `makeCompleteSelfAvoidingWalk`
-    const surroundingPointsWithinBounds = surroundingPoints.filter(
-      point => {
-        const [x, y] = point
-        const xAcceptable = (x >= 0 && x <= canvasLength)
-        const yAcceptable = (y >= 0 && y <= canvasHeight)
-        return xAcceptable && yAcceptable
-      }
-    )
-
-    const unvisitedSurroundingPoints = surroundingPointsWithinBounds.filter(
-      surroundingPoint => {
-        for (let visitedPoint of points) {
-          if (JSON.stringify(visitedPoint) === JSON.stringify(surroundingPoint)) {
-            return false
-          }
+    const availablePoints = surroundingPoints.filter(
+      ([x, y]) => {
+        // has to be within canvas bounds
+        if (x < 0 || x > canvasLength) return false
+        if (y < 0 || y > canvasHeight) return false
+        // can't be a previously visited point
+        for (let [visitedX, visitedY] of points) {
+          if (visitedX === x && visitedY === y) return false
         }
         return true
       }
     )
 
-    if (!unvisitedSurroundingPoints.length) {
+    if (!availablePoints.length) {
       return points
     }
 
-    const randomMove = unvisitedSurroundingPoints[
-      Math.floor(Math.random() * unvisitedSurroundingPoints.length)
+    const randomMove = availablePoints[
+      Math.floor(Math.random() * availablePoints.length)
     ]
 
     x = randomMove[0]
