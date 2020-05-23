@@ -1,18 +1,16 @@
 {
   "name": "algorithms",
   "version": "1.0.0",
-  "description": "",
-  "main": "ch01-01-o-notation-rules.js",
+  "description": "Study of `Essential Algorithms, 2nd Edition` by Rod Stephens",
   "scripts": {
     "test": "jest --watch"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Gabriel Cabrejas",
   "license": "ISC",
   "dependencies": {
     "jest": "^26.0.1"
   },
   "devDependencies": {
-    "eslint": "^7.0.0"
+    "eslint": "^7.1.0"
   }
 }
