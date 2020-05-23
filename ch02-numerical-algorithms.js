@@ -140,6 +140,7 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
     points.push([x, y])
   }
 }
+
 // COMPLETE SELF-AVOIDING WALK
 function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
   let initialX = Math.round(Math.random() * canvasLength)
