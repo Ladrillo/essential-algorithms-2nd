@@ -168,6 +168,7 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
       return points
     }
     const unvisitedRandomized = randomizeArray(unvisitedSurroundingPoints)
+
     for (let point of unvisitedRandomized) {
       const walk = extendWalk([...points, point])
       if (walk.length === totalPoints) {
