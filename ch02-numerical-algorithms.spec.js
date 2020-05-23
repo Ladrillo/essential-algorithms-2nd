@@ -211,3 +211,6 @@ it('werkz', () => {
   expect(gcd(3003, 4851)).toBe(231)
   expect(gcd(8, 12)).toBe(4)
 })
+
+// EXPONENTIATION
+
