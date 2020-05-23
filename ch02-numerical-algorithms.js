@@ -1,4 +1,5 @@
 // 8- RANDOM WALKS
+
 function drawPoints({
   gridSize: [width, height],
   stepSize,
