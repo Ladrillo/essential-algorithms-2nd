@@ -52,20 +52,33 @@ function makeRandoWalk(numPoints, canvasLength, canvasHeight) {
   let x = Math.round(Math.random() * canvasLength)
   let y = Math.round(Math.random() * canvasHeight)
 
-  let listOfPoints = []
+  let walk = []
 
-  listOfPoints.push([x, y])
+  walk.push([x, y])
+
+  const getMovesWithinBounds = () => {
+    const surroundingPoints = [
+      [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]
+    ]
+    return surroundingPoints.filter(
+      ([x, y]) => {
+        if (x < 0 || x > canvasLength) return false
+        if (y < 0 || y > canvasHeight) return false
+        return true
+      }
+    )
+  }
 
   for (let i = 1; i < numPoints; i++) {
-    const direction = Math.floor(Math.random() * 4)
-    if (direction === 0) y -= 1      // up
-    else if (direction === 1) x += 1 // right
-    else if (direction === 2) y += 1 // down
-    else x -= 1                      // left
+    const possibleMoves = getMovesWithinBounds()
+    const [nextX, nextY] = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]
 
-    listOfPoints.push([x, y])
+    x = nextX
+    y = nextY
+
+    walk.push([x, y])
   }
-  return listOfPoints
+  return walk
 }
 
 // NON-INTERSECTING RANDOM WALK
@@ -171,7 +184,7 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
 {
   const gridSize = [6, 6]
   const stepSize = 20
-  const points = makeRandoWalk(30, ...gridSize)
+  const points = makeRandoWalk(200, ...gridSize)
   drawPoints({ gridSize, stepSize, points })
 }
 {
