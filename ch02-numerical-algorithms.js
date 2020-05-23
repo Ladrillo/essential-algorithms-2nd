@@ -11,7 +11,6 @@ function drawPoints({
   canvas.width = width * stepSize
   canvas.height = height * stepSize
   canvas.style.border = '2px dashed black'
-  canvas.style.margin = `${stepSize / 2}px`
   canvas.style.padding = `${stepSize}px`
   canvas.style.backgroundColor = '#f7faff'
 
@@ -186,9 +185,9 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
 }
 
 {
-  const gridSize = [6, 6]
+  const gridSize = [36,36]
   const stepSize = 20
-  const points = makeRandoWalk(200, ...gridSize)
+  const points = makeRandoWalk(2000, ...gridSize)
   drawPoints({ gridSize, stepSize, points })
 }
 {
