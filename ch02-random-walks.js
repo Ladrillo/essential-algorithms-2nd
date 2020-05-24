@@ -61,7 +61,7 @@ function randomizeArray(arr) {
 function getSelfAvoidingMovesWithinCanvas(canvasLength, canvasHeight, points) {
   const [x, y] = points[points.length - 1]
   const surroundingPoints = [
-    [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]
+    [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y] // up, right, down, left
   ]
   const availablePoints = surroundingPoints.filter(
     ([x, y]) => {
