@@ -58,7 +58,7 @@ function randomizeArray(arr) {
   return result
 }
 
-function getPossibleMoves(canvasLength, canvasHeight, points) {
+function getSelfAvoidingMovesWithinCanvas(canvasLength, canvasHeight, points) {
   const [x, y] = points[points.length - 1]
   const surroundingPoints = [
     [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]
@@ -124,39 +124,18 @@ function makeNonIntersectingRandomWalk(canvasLength, canvasHeight) {
 
   let points = []
 
-  let initial = [x, y]
-
-  points.push(initial)
+  points.push([x, y])
 
   while (true) {
-    const surroundingPoints = [
-      [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]
-    ]
-
-    const availablePoints = surroundingPoints.filter(
-      ([x, y]) => {
-        // has to be within canvas bounds
-        if (x < 0 || x > canvasLength) return false
-        if (y < 0 || y > canvasHeight) return false
-        // can't be a previously visited point
-        for (let [visitedX, visitedY] of points) {
-          if (visitedX === x && visitedY === y) return false
-        }
-        return true
-      }
+    const moves = getSelfAvoidingMovesWithinCanvas(
+      canvasLength, canvasHeight, points
     )
-
-    if (!availablePoints.length) {
+    if (!moves.length) {
       // breaks loop on dead end
       return points
     }
-
-    const randomMove = availablePoints[
-      Math.floor(Math.random() * availablePoints.length)
-    ]
-
-    x = randomMove[0]
-    y = randomMove[1]
+    x = moves[0][0]
+    y = moves[0][1]
 
     points.push([x, y])
   }
@@ -181,14 +160,14 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
       log && console.log(`YES! Returning complete walk after ${counter} recursive calls`)
       return points
     }
-    const availablePoints = getPossibleMoves(
+    const moves = getSelfAvoidingMovesWithinCanvas(
       canvasLength, canvasHeight, points
     )
-    if (!availablePoints.length) {
+    if (!moves.length) {
       log && console.log(`ARGH! Dead end after ${counter} recursive calls`)
       return points
     }
-    for (let point of availablePoints) {
+    for (let point of moves) {
       const walk = extendWalk([...points, point])
       if (walk.length === totalPoints) {
         // this console.log happens exactly (totalPoints - 1) times
