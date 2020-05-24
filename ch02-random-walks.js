@@ -58,6 +58,26 @@ function randomizeArray(arr) {
   return result
 }
 
+function getPossibleMoves(canvasLength, canvasHeight, points) {
+  const [x, y] = points[points.length - 1]
+  const surroundingPoints = [
+    [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]
+  ]
+  const availablePoints = surroundingPoints.filter(
+    ([x, y]) => {
+      // has to be within canvas bounds
+      if (x < 0 || x > canvasLength) return false
+      if (y < 0 || y > canvasHeight) return false
+      // can't be a previously visited point
+      for (let [visitedX, visitedY] of points) {
+        if (visitedX === x && visitedY === y) return false
+      }
+      return true
+    }
+  )
+  return randomizeArray(availablePoints)
+}
+
 // RANDOM WALK
 function makeRandomWalk(numPoints, canvasLength, canvasHeight) {
   // set starting point randomly
@@ -152,7 +172,7 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
 
   return extendWalk([[initialX, initialY]])
 
-  function extendWalk(points) {
+  function extendWalk(points, possibleNextMoves) {
     if (++counter > 2000) {
       log && console.log(`STACK OVERFLOW! after ${counter} recursive calls`)
       return points
@@ -161,29 +181,14 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
       log && console.log(`YES! Returning complete walk after ${counter} recursive calls`)
       return points
     }
-    const [x, y] = points[points.length - 1]
-    const surroundingPoints = [
-      [x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]
-    ]
-    const availablePoints = surroundingPoints.filter(
-      ([x, y]) => {
-        // has to be within canvas bounds
-        if (x < 0 || x > canvasLength) return false
-        if (y < 0 || y > canvasHeight) return false
-        // can't be a previously visited point
-        for (let [visitedX, visitedY] of points) {
-          if (visitedX === x && visitedY === y) return false
-        }
-        return true
-      }
+    const availablePoints = possibleNextMoves || getPossibleMoves(
+      canvasLength, canvasHeight, points
     )
     if (!availablePoints.length) {
       log && console.log(`ARGH! Dead end after ${counter} recursive calls`)
       return points
     }
-    const unvisitedRandomized = randomizeArray(availablePoints)
-
-    for (let point of unvisitedRandomized) {
+    for (let point of availablePoints) {
       const walk = extendWalk([...points, point])
       if (walk.length === totalPoints) {
         // this console.log happens exactly (totalPoints - 1) times
@@ -197,7 +202,7 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
 }
 
 {
-  const gridSize = [36,36]
+  const gridSize = [36, 36]
   const stepSize = 20
   const points = makeRandomWalk(2000, ...gridSize)
   drawPoints({ gridSize, stepSize, points })
