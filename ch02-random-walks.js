@@ -172,7 +172,7 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
 
   return extendWalk([[initialX, initialY]])
 
-  function extendWalk(points, possibleNextMoves) {
+  function extendWalk(points) {
     if (++counter > 2000) {
       log && console.log(`STACK OVERFLOW! after ${counter} recursive calls`)
       return points
@@ -181,7 +181,7 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
       log && console.log(`YES! Returning complete walk after ${counter} recursive calls`)
       return points
     }
-    const availablePoints = possibleNextMoves || getPossibleMoves(
+    const availablePoints = getPossibleMoves(
       canvasLength, canvasHeight, points
     )
     if (!availablePoints.length) {
