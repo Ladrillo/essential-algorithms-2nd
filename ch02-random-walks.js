@@ -152,7 +152,7 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
   return extendWalk([[initialX, initialY]])
 
   function extendWalk(points) {
-    if (counter++ >= 2000) {
+    if (counter++ >= 20000) {
       log && console.log(`STACK OVERFLOW! after ${counter} recursive calls`)
       return points
     }
@@ -193,7 +193,7 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
   drawPoints({ gridSize, stepSize, points })
 }
 {
-  const gridSize = [4, 4]
+  const gridSize = [5, 5]
   const stepSize = 25
   const points = makeCompleteSelfAvoidingWalk(...gridSize)
   drawPoints({ gridSize, stepSize, points })
