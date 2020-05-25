@@ -187,11 +187,11 @@ function pickItemWithProbabilities(items, probabilities) {
     results[pickedColor]++
     iterations--
   }
-  console.log({
-    red: results.red / 100,
-    green: results.green / 100,
-    blue: results.blue / 100,
-  })
+  // console.log({
+  //   red: results.red / 100,
+  //   green: results.green / 100,
+  //   blue: results.blue / 100,
+  // })
 }
 
 // 8 RANDOM WALKS (see other file)
