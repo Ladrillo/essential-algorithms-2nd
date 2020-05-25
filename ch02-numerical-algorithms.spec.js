@@ -212,4 +212,42 @@ it('calculates greatest common divisor', () => {
   expect(gcd(8, 12)).toBe(4)
 })
 
-// EXPONENTIATION
+// 10- FAST EXPONENTIATION
+function exponentiate(value, exponent) {
+  const digitsBinaryExponent = exponent
+    .toString(2)
+    .split('')
+    .map(n => Number(n))
+
+  let result = 1
+
+  for (let bit of digitsBinaryExponent) {
+    result *= result
+    if (bit === 1) {
+      result *= value
+    }
+  }
+  return result
+}
+
+it('exponentiate with base 2', () => {
+  expect(exponentiate(2, 0)).toBe(1)
+  expect(exponentiate(2, 1)).toBe(2)
+  expect(exponentiate(2, 2)).toBe(4)
+  expect(exponentiate(2, 3)).toBe(8)
+  expect(exponentiate(2, 4)).toBe(16)
+  expect(exponentiate(2, 5)).toBe(32)
+  // big one
+  expect(exponentiate(2, 34)).toBe(17179869184)
+})
+
+it('exponentiate with base 3', () => {
+  expect(exponentiate(3, 0)).toBe(1)
+  expect(exponentiate(3, 1)).toBe(3)
+  expect(exponentiate(3, 2)).toBe(9)
+  expect(exponentiate(3, 3)).toBe(27)
+  expect(exponentiate(3, 4)).toBe(81)
+  expect(exponentiate(3, 5)).toBe(243)
+  // big one
+  expect(exponentiate(3, 25)).toBe(847288609443)
+})
