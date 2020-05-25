@@ -238,7 +238,7 @@ it('exponentiate with base 2', () => {
   expect(exponentiate(2, 4)).toBe(16)
   expect(exponentiate(2, 5)).toBe(32)
   // big one
-  expect(exponentiate(2, 34)).toBe(17179869184)
+  expect(exponentiate(2, 32)).toBe(4294967296)
 })
 
 it('exponentiate with base 3', () => {
