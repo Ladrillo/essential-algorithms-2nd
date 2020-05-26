@@ -251,3 +251,49 @@ it('exponentiate with base 3', () => {
   // big one
   expect(exponentiate(3, 25)).toBe(847288609443)
 })
+
+// 11- FINDING PRIME FACTORS 
+
+// naive implementation
+function findFactors(number) {
+  const factors = []
+  let i = 2
+
+  while (i < number) {
+    while (number % i === 0) {
+      factors.push(i)
+      number = number / i
+    }
+    i++
+  }
+  if (number > 1) factors.push(number)
+  return factors
+}
+// console.log(findFactors(26747868886))
+
+// less naive implementation
+function findFactorsImproved(number) {
+  const factors = []
+
+  // pull out factors of 2
+  while (number % 2 === 0) {
+    factors.push(2)
+    number = number / 2
+  }
+
+  let i = 3
+  let maxFactor = Math.sqrt(number) 
+
+  // pull out factors of i
+  while (i < maxFactor) {
+    while (number % i === 0) {
+      factors.push(i)
+      number = number / i
+      maxFactor = Math.sqrt(number)
+    }
+    i = i + 2
+  }
+  if (number > 1) factors.push(number)
+  return factors
+}
+console.log(findFactorsImproved(26))
