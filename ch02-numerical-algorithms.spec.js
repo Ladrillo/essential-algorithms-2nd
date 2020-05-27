@@ -317,16 +317,12 @@ function findPrimesWithEratosthenesSieve(maxNum) {
     .map(num => num + 1).slice(1)
   // at each surviving num in range, delete its multiples
   for (let i = 0; i < range.length; i++) {
-    for (let k = i * 2 + 2; k < range.length; k++) {
+    for (let k = i * 2; k < range.length; k++) {
       // console.log(`k is ${k}`)
-      const currentNotCrossedOut = !!range[i]
-      const candidateNotCrossedOut = !!range[k]
-      const isCandidateMultiple = range[k] % range[i] === 0
-      if (
-        currentNotCrossedOut &&
-        candidateNotCrossedOut &&
-        isCandidateMultiple
-      ) {
+      const same = range[i] === range[k] // only happens when i = 0
+      const crossedOut = !range[i] || !range[k]
+      const multiple = range[k] % range[i] === 0
+      if (!same && !crossedOut && multiple) {
         delete range[k]
         // console.log(range)
       }
