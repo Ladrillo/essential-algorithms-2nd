@@ -311,7 +311,7 @@ it('findFactorsImproved', () => {
 })
 
 // The sieve of Eratosthenes
-function findPrimeWithEratosthenesSieve(maxNum) {
+function findPrimesWithEratosthenesSieve(maxNum) {
   // all numbers from 2 to maxNum inclusive
   const range = [...Array(maxNum).keys()]
     .map(num => num + 1)
@@ -320,8 +320,10 @@ function findPrimeWithEratosthenesSieve(maxNum) {
   for (let i = 0; i < range.length; i++) {
     if (range[i]) {
       for (let k = i * 2; k < range.length; k++) {
+        // if non deleted and multiple
         if (range[k] && range[k] % range[i] === 0) {
-          if (range[k] !== 2) delete range[k]
+          // careful not to delete number 2 on k = 0 (first iteration)
+          k && delete range[k]
         }
       }
     }
@@ -331,5 +333,5 @@ function findPrimeWithEratosthenesSieve(maxNum) {
 }
 it('findPrime using the sieve', () => {
   const primesUpTo100 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
-  expect(findPrimeWithEratosthenesSieve(100)).toEqual(primesUpTo100)
+  expect(findPrimesWithEratosthenesSieve(100)).toEqual(primesUpTo100)
 })
