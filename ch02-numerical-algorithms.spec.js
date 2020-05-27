@@ -43,7 +43,7 @@ function* biasedRangeRandomNumGen(min, max) {
     yield min + number % (max - min + 1)
   }
 }
-it('biasedRangeRandomNumGen returns biased random numbers either 1 or 2', () => {
+it('biasedRangeRandomNumGen either 1 or 2', () => {
   const gen = biasedRangeRandomNumGen(1, 2)
 
   expect(gen.next().value).toBe(1)
@@ -207,7 +207,7 @@ function gcd(a, b) {
   }
   return a
 }
-it('calculates greatest common divisor', () => {
+it('gcd calculates greatest common divisor', () => {
   expect(gcd(4851, 3003)).toBe(231)
   expect(gcd(3003, 4851)).toBe(231)
   expect(gcd(8, 12)).toBe(4)
