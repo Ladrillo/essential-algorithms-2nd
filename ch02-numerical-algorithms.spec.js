@@ -34,8 +34,8 @@ it('makeRandom returns random numbers', () => {
 // PRNG can be biased or fair
 // Using a linear congruential generator for a specific range
 
-// A- The bad approach
-function* badRangeRandomGenerator(min, max) {
+// A- The "bad" approach
+function* biasedRangeRandomNumGen(min, max) {
   const gen = makeRandom(7, 5, 11)
 
   while (true) {
@@ -43,8 +43,8 @@ function* badRangeRandomGenerator(min, max) {
     yield min + number % (max - min + 1)
   }
 }
-it('badRangeRandomGenerator returns biased random numbers either 1 or 2', () => {
-  const gen = badRangeRandomGenerator(1, 2)
+it('biasedRangeRandomNumGen returns biased random numbers either 1 or 2', () => {
+  const gen = biasedRangeRandomNumGen(1, 2)
 
   expect(gen.next().value).toBe(1)
   expect(gen.next().value).toBe(2)
@@ -52,7 +52,8 @@ it('badRangeRandomGenerator returns biased random numbers either 1 or 2', () => 
 })
 
 // B better approach
-function* betterRangeGenerator(min, max) { // Makes floats between min and max ???
+// Makes floats between min and max ???
+function* betterRangeGenerator(min, max) {
   const gen = makeRandom(7, 5, 11)
 
   while (true) {
@@ -86,7 +87,7 @@ else toss twice again
 function whoWinsThePrize(friendsNumber) {
   let binaryNumber = ''
   // In production we'd use a fair PRNG, or a CSPRNG
-  const fairCoinTossGen = badRangeRandomGenerator(0, 1)
+  const fairCoinTossGen = biasedRangeRandomNumGen(0, 1)
 
   for (let i = 0; i < (friendsNumber + 1) / 2; i++) {
     const fairCoinToss = fairCoinTossGen.next().value + ''
@@ -120,7 +121,7 @@ function randomizeArray(arr) {
   // We don't want to cause mutations in the original arr
   const result = [...arr]
   // In production we'd use a fair PRNG, or a CSPRNG
-  const randomIndexGen = badRangeRandomGenerator(0, arr.length - 1)
+  const randomIndexGen = biasedRangeRandomNumGen(0, arr.length - 1)
 
   for (let idx in result) {
     const randomIdx = randomIndexGen.next().value
@@ -274,7 +275,6 @@ it('findFactors', () => {
   expect(findFactors(3)).toEqual([3])
   expect(findFactors(12)).toEqual([2, 2, 3])
   expect(findFactors(88)).toEqual([2, 2, 2, 11])
-  expect(findFactors(857362)).toEqual([2, 11, 38971])
 })
 
 // less naive implementation
