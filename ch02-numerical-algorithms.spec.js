@@ -320,7 +320,7 @@ function findPrimesWithEratosthenesSieve(maxNum) {
   for (let i = 0; i < range.length; i++) {
     for (let k = i * 2; k < range.length; k++) {
       // console.log(`k is ${k}`)
-      const notFirstIteration = k !== 0
+      const notFirstIteration = k !== 0 // otherwise deletes number 2
       const currentNumberNotCrossedOut = !!range[i]
       const candidateForMultipleNotCrossedOut = !!range[k]
       const candidateIsMultiple = range[k] % range[i] === 0
