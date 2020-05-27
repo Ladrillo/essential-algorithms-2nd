@@ -316,7 +316,7 @@ function findPrimeWithEratosthenesSieve(maxNum) {
   const range = [...Array(maxNum).keys()]
     .map(num => num + 1)
     .slice(1)
-  // at each num in range, delete its multiples
+  // at each surviving num in range, delete its multiples
   for (let i = 0; i < range.length; i++) {
     if (range[i]) {
       for (let k = i * 2; k < range.length; k++) {
