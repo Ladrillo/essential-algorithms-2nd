@@ -269,7 +269,13 @@ function findFactors(number) {
   if (number > 1) factors.push(number)
   return factors
 }
-// console.log(findFactors(26747868886))
+it('findFactors', () => {
+  expect(findFactors(2)).toEqual([2])
+  expect(findFactors(3)).toEqual([3])
+  expect(findFactors(12)).toEqual([2, 2, 3])
+  expect(findFactors(88)).toEqual([2, 2, 2, 11])
+  expect(findFactors(857362)).toEqual([2, 11, 38971])
+})
 
 // less naive implementation
 function findFactorsImproved(number) {
@@ -282,7 +288,7 @@ function findFactorsImproved(number) {
   }
 
   let i = 3
-  let maxFactor = Math.sqrt(number) 
+  let maxFactor = Math.sqrt(number)
 
   // pull out factors of i
   while (i < maxFactor) {
@@ -296,4 +302,34 @@ function findFactorsImproved(number) {
   if (number > 1) factors.push(number)
   return factors
 }
-console.log(findFactorsImproved(26))
+it('findFactorsImproved', () => {
+  expect(findFactorsImproved(2)).toEqual([2])
+  expect(findFactorsImproved(3)).toEqual([3])
+  expect(findFactorsImproved(12)).toEqual([2, 2, 3])
+  expect(findFactorsImproved(88)).toEqual([2, 2, 2, 11])
+  expect(findFactorsImproved(857362)).toEqual([2, 11, 38971])
+})
+
+// The sieve of Eratosthenes
+function findPrimeWithEratosthenesSieve(maxNum) {
+  // all numbers from 2 to maxNum inclusive
+  const range = [...Array(maxNum).keys()]
+    .map(num => num + 1)
+    .slice(1)
+  // at each num in range, delete its multiples
+  for (let i = 0; i < range.length; i++) {
+    if (range[i]) {
+      for (let k = i * 2; k < range.length; k++) {
+        if (range[k] && range[k] % range[i] === 0) {
+          if (range[k] !== 2) delete range[k]
+        }
+      }
+    }
+  }
+  // get rid of the empty spots in the array
+  return range.filter(e => !!e)
+}
+it('findPrime using the sieve', () => {
+  const primesUpTo100 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+  expect(findPrimeWithEratosthenesSieve(100)).toEqual(primesUpTo100)
+})
