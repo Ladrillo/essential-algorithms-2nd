@@ -314,11 +314,10 @@ it('findFactorsImproved', () => {
 function findPrimesWithEratosthenesSieve(maxNum) {
   // all numbers from 2 to maxNum inclusive
   const range = [...Array(maxNum).keys()]
-    .map(num => num + 1)
-    .slice(1)
+    .map(num => num + 1).slice(1)
   // at each surviving num in range, delete its multiples
   for (let i = 0; i < range.length; i++) {
-    for (let k = i * 2 + 1; k < range.length; k++) {
+    for (let k = i * 2 + 2; k < range.length; k++) {
       // console.log(`k is ${k}`)
       const currentNotCrossedOut = !!range[i]
       const candidateNotCrossedOut = !!range[k]
