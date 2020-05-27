@@ -340,7 +340,10 @@ function findPrimesWithEratosthenesSieve(maxNum) {
 }
 it('findPrime using the sieve', () => {
   const primesUpToTen = [2, 3, 5, 7]
-  const primesUpTo100 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+  const primesUpTo100 = [
+    2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,
+    43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97
+  ]
   expect(findPrimesWithEratosthenesSieve(10)).toEqual(primesUpToTen)
   expect(findPrimesWithEratosthenesSieve(100)).toEqual(primesUpTo100)
 })
