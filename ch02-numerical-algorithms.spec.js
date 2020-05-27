@@ -319,17 +319,19 @@ function findPrimesWithEratosthenesSieve(maxNum) {
   // at each surviving num in range, delete its multiples
   for (let i = 0; i < range.length; i++) {
     for (let k = i * 2; k < range.length; k++) {
-      const notFirstIteration = !!k
+      // console.log(`k is ${k}`)
+      const notFirstIteration = k !== 0
       const currentNumberNotCrossedOut = !!range[i]
       const candidateForMultipleNotCrossedOut = !!range[k]
       const candidateIsMultiple = range[k] % range[i] === 0
       if (
-        notFirstIteration && // to avoid deleting number 2
+        notFirstIteration &&
         currentNumberNotCrossedOut &&
         candidateForMultipleNotCrossedOut &&
         candidateIsMultiple
       ) {
         delete range[k]
+        // console.log(range)
       }
     }
   }
@@ -337,6 +339,8 @@ function findPrimesWithEratosthenesSieve(maxNum) {
   return range.filter(e => !!e)
 }
 it('findPrime using the sieve', () => {
+  const primesUpToTen = [2, 3, 5, 7]
   const primesUpTo100 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+  expect(findPrimesWithEratosthenesSieve(10)).toEqual(primesUpToTen)
   expect(findPrimesWithEratosthenesSieve(100)).toEqual(primesUpTo100)
 })
