@@ -358,7 +358,7 @@ function isPrimeFermat(number, numberTests) {
     const notPrime = (witness ** (candidate - 1n)) % candidate !== 1n
     if (notPrime) return false
   }
-  return true
+  return true // let us hope not all witnesses were liars
 }
 it('isPrimeFermat', () => {
   const primesUpTo100 = [
