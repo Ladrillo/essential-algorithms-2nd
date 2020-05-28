@@ -374,9 +374,9 @@ it('isPrimeFermat', () => {
     92, 93, 94, 95, 96, 98, 99, 100,
   ]
   primesUpTo100.forEach(prime => {
-    expect(isPrimeFermat(prime, 5)).toBe(true)
+    expect(isPrimeFermat(prime, 10)).toBe(true)
   })
   compositesUpTo100.forEach(composite => {
-    expect(isPrimeFermat(composite, 5)).toBe(false)
+    expect(isPrimeFermat(composite, 10)).toBe(false)
   })
 })
