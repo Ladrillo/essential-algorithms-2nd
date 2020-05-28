@@ -348,8 +348,8 @@ function getRandomIntBetween(min, max) { // min inclusive; max exclusive
 }
 
 function isPrimeFermat(number, numberTests) {
-  const tests = Array(numberTests)
   const candidate = BigInt(number)
+  const tests = Array(numberTests)
   // eslint-disable-next-line
   for (let _ of tests) {
     // fermat's little theorem: most of the time,
