@@ -348,13 +348,13 @@ function getRandomIntBetween(min, max) { // min inclusive; max exclusive
 }
 
 function isPrimeFermat(number, numberTests) {
-  const tests = [...Array(numberTests).keys()]
+  const tests = Array(numberTests)
+  const candidate = BigInt(number)
   // eslint-disable-next-line
-  for (let _ in tests) {
-    // annoying big int preparations
-    const candidate = BigInt(number)
+  for (let _ of tests) {
+    // fermat's little theorem: most of the time,
+    // if p is prime and 1 <= n < p, then (n ** (p - 1)) % p is 1
     const witness = BigInt(getRandomIntBetween(1, number))
-    // fermat's little theorem
     const notPrime = (witness ** (candidate - 1n)) % candidate !== 1n
     if (notPrime) return false
   }
