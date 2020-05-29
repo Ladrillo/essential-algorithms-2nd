@@ -381,21 +381,31 @@ it('isPrimeFermat', () => {
   })
 })
 
-// 13- INTEGRATION: THE RECTANGLE RULE
-// recta a 45 grados
-// xMin = 0, xMax = 10 -> A = 100
-const curve1 = x => x + 5
-const curve2 = x => 1 + x + Math.sin(2 * x)
-
+// 13- INTEGRATION
+// THE RECTANGLE RULE
 function getAreaUsingRectangles(curve, { xMin, xMax }, intervals) {
   const dx = (xMax - xMin) / intervals
   let totalArea = 0
 
-  for (let x = xMin; x < xMax - dx; x += dx) {
+  for (let x = xMin; x <= xMax - dx; x += dx) {
     totalArea += curve(x) * dx
   }
   return totalArea
 }
 
-console.log(getAreaUsingRectangles(curve1, { xMin: 0, xMax: 10 }, 100))
-console.log(getAreaUsingRectangles(curve2, { xMin: 0, xMax: 5 }, 100))
+it('getAreaUsingRectangles', () => {
+  const curve1 = x => x + 5
+  const curve2 = x => 1 + x + Math.sin(2 * x)
+
+  const result1 = getAreaUsingRectangles(curve1, { xMin: 10, xMax: 20 }, 200)
+  const result2 = getAreaUsingRectangles(curve2, { xMin: 0, xMax: 5 }, 100)
+
+  const realArea1 = 200
+  const realArea2 = 18.4195
+
+  expect(realArea1 - result1).toBeGreaterThan(0)
+  expect(realArea1 - result1).toBeLessThan(2)
+
+  expect(realArea2 - result2).toBeGreaterThan(0)
+  expect(realArea2 - result2).toBeLessThan(1)
+})
