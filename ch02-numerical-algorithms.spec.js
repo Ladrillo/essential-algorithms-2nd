@@ -389,19 +389,13 @@ const curve2 = x => 1 + x + Math.sin(2 * x)
 
 function getAreaUsingRectangles(curve, { xMin, xMax }, intervals) {
   const dx = (xMax - xMin) / intervals
-
   let totalArea = 0
-  let x = xMin
 
-  for (let i = 1; i < intervals; i++) {
-    const y = curve(x)
-    const rectArea = dx * y
-    totalArea += rectArea
-    x += dx
+  for (let x = xMin; x < xMax - dx; x += dx) {
+    totalArea += curve(x) * dx
   }
-
   return totalArea
 }
 
-console.log(getAreaUsingRectangles(curve1, { xMin: 0, xMax: 10 }, 1000))
-console.log(getAreaUsingRectangles(curve2, { xMin: 0, xMax: 5 }, 1000))
+console.log(getAreaUsingRectangles(curve1, { xMin: 0, xMax: 10 }, 100))
+console.log(getAreaUsingRectangles(curve2, { xMin: 0, xMax: 5 }, 100))
