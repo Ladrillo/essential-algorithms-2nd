@@ -388,7 +388,7 @@ function getAreaUsingRectangles(curve, { xMin, xMax }, intervals) {
   let totalArea = 0
 
   for (let x = xMin; x <= xMax - dx; x += dx) {
-    totalArea += curve(x) * dx
+    totalArea += dx * curve(x)
   }
   return totalArea
 }
@@ -397,15 +397,43 @@ it('getAreaUsingRectangles', () => {
   const curve1 = x => x + 5
   const curve2 = x => 1 + x + Math.sin(2 * x)
 
-  const result1 = getAreaUsingRectangles(curve1, { xMin: 10, xMax: 20 }, 200)
+  const result1 = getAreaUsingRectangles(curve1, { xMin: 10, xMax: 20 }, 100)
   const result2 = getAreaUsingRectangles(curve2, { xMin: 0, xMax: 5 }, 100)
 
   const realArea1 = 200
   const realArea2 = 18.4195
 
   expect(realArea1 - result1).toBeGreaterThan(0)
-  expect(realArea1 - result1).toBeLessThan(2)
+  expect(realArea1 - result1).toBeLessThan(3)
 
   expect(realArea2 - result2).toBeGreaterThan(0)
-  expect(realArea2 - result2).toBeLessThan(1)
+  expect(realArea2 - result2).toBeLessThan(0.2)
+})
+
+// USING TRAPEZOIDS
+function getAreaUsingTrapezoids(curve, { xMin, xMax }, intervals) {
+  const dx = (xMax - xMin) / intervals
+  let totalArea = 0
+
+  for (let x = xMin; x <= xMax - dx; x += dx) {
+    totalArea += dx * ((curve(x) + curve(x + dx)) / 2)
+  }
+  return totalArea
+}
+
+it('getAreaUsingTrapezoids', () => {
+  const curve1 = x => x + 5
+  const curve2 = x => 1 + x + Math.sin(2 * x)
+
+  const result1 = getAreaUsingTrapezoids(curve1, { xMin: 10, xMax: 20 }, 100)
+  const result2 = getAreaUsingTrapezoids(curve2, { xMin: 0, xMax: 5 }, 100)
+
+  const realArea1 = 200
+  const realArea2 = 18.4195
+
+  expect(realArea1 - result1).toBeGreaterThan(0)
+  expect(realArea1 - result1).toBeLessThan(2.5)
+
+  expect(realArea2 - result2).toBeGreaterThan(0)
+  expect(realArea2 - result2).toBeLessThan(0.1)
 })
