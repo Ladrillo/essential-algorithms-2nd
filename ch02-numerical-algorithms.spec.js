@@ -450,9 +450,11 @@ function getAreaUsingTrapezoidsAdaptive(curve, { xMin, xMax }, intervals, maxErr
   function recursiveHelper(x, dx) {
     const subDX = dx / 2
 
+    // areas
     const trapezoid = dx * ((curve(x) + curve(x + dx)) / 2)
     const subTrapezoid1 = subDX * ((curve(x) + curve(x + subDX)) / 2)
     const subTrapezoid2 = subDX * ((curve(x + subDX) + curve(x + dx)) / 2)
+
     const error = Math.abs((subTrapezoid1 + subTrapezoid2 - trapezoid) / trapezoid)
 
     if (error > maxError) {
