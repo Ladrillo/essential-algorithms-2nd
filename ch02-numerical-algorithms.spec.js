@@ -471,7 +471,8 @@ it('getAreaUsingTrapezoidsAdaptive', () => {
   const withoutAdaptive = getAreaUsingTrapezoids(curve, { xMin: 0, xMax: 5 }, 10)
   const withAdaptive = getAreaUsingTrapezoidsAdaptive(curve, { xMin: 0, xMax: 5 }, 2, 0.00001)
 
-  // with fewer initial subdivisions (only 2 versus 10), the adaptive is way more precise
+  // With fewer initial subdivisions (only 2 versus 10), the adaptive is way more precise
+  // More than 400 recursive calls happen with this example
   expect(Math.trunc(withAdaptive * 10000)).toBe(realArea * 10000)
   expect(Math.trunc(withoutAdaptive * 10000)).toBe(183415)
 })
