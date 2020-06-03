@@ -437,3 +437,44 @@ it('getAreaUsingTrapezoids', () => {
   expect(realArea2 - result2).toBeGreaterThan(0)
   expect(realArea2 - result2).toBeLessThan(0.1)
 })
+
+// TRAPEZOIDS RECURSIVE
+function getAreaUsingTrapezoidsAdaptive(curve, { xMin, xMax }, intervals, maxError) {
+  const dx = (xMax - xMin) / intervals
+  let totalArea = 0
+  let recursiveCalls = 0
+
+  for (let x = xMin; x <= xMax - dx; x += dx) {
+    recursiveHelper(x, dx)
+  }
+
+  function recursiveHelper(x, dx) {
+    const subDX = dx / 2
+
+    const trapezoid = dx * ((curve(x) + curve(x + dx)) / 2)
+    const subTrapezoid1 = subDX * ((curve(x) + curve(x + subDX)) / 2)
+    const subTrapezoid2 = subDX * ((curve(x + subDX) + curve(x + dx)) / 2)
+    const error = Math.abs((subTrapezoid1 + subTrapezoid2 - trapezoid) / trapezoid)
+    
+    if (error > maxError) {
+      recursiveCalls++
+      recursiveHelper(x, subDX)
+      recursiveHelper(x + subDX, subDX)
+    } else {
+      totalArea += subTrapezoid1 + subTrapezoid2
+    }
+  }
+  console.log(`${recursiveCalls} recursive calls`)
+  return totalArea
+}
+it('getAreaUsingTrapezoidsAdaptive', () => {
+  const curve = x => 1 + x + Math.sin(2 * x)
+  
+  const realArea = 18.4195
+  const withoutAdaptive = getAreaUsingTrapezoids(curve, { xMin: 0, xMax: 5 }, 10)
+  const withAdaptive = getAreaUsingTrapezoidsAdaptive(curve, { xMin: 0, xMax: 5 }, 2, 0.00001)
+  
+  // with fewer initial subdivisions (only 2 versus 10), the adaptive is way more precise
+  expect(Math.trunc(withAdaptive * 10000)).toBe(realArea * 10000)
+  expect(Math.trunc(withoutAdaptive * 10000)).toBe(183415)
+})
