@@ -19,6 +19,15 @@ LinkedList.prototype.iterate = function () {
 LinkedList.prototype.insertAtBeginning = function (data) {
   this.head = new Node(data, this.head)
 }
+LinkedList.prototype.findNode = function (data) {
+  let pointer = this.head
+
+  while (pointer) {
+    if (pointer.data === data) return pointer
+    pointer = pointer.next
+  }
+  return null
+}
 
 describe('linked lists', () => {
   let newNode
@@ -48,6 +57,12 @@ describe('linked lists', () => {
 
   it('can iterate over a Linked List', () => {
     expect(linkedList.iterate()).toEqual(['a', 'b', 'c'])
-    console.log(linkedList)
+  })
+
+  it('can find a node in the Linked List', () => {
+    expect(linkedList.findNode('a')).toEqual(linkedList.head)
+    expect(linkedList.findNode('b')).toEqual(linkedList.head.next)
+    expect(linkedList.findNode('c')).toEqual(linkedList.head.next.next)
+    expect(linkedList.findNode('d')).toBe(null)
   })
 })
