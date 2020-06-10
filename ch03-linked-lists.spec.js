@@ -34,6 +34,25 @@ LinkedList.prototype.insertAtEnd = function (data) {
   }
 }
 
+LinkedList.prototype.insertAfterNode = function (node, data) {
+  const newNode = new Node(data, node.next)
+  node.next = newNode
+}
+
+LinkedList.prototype.deleteNode = function (node) {
+  let pointer = this.head
+
+  while (pointer) {
+    if (pointer.next === node) {
+      pointer.next = pointer.next.next
+      delete node.data
+      delete node.next
+      return
+    }
+    pointer = pointer.next
+  }
+}
+
 LinkedList.prototype.findNode = function (data) {
   let pointer = this.head.next
 
@@ -128,5 +147,35 @@ describe('linked lists', () => {
 
     expect(linkedList.findNode('a').next).toBe(null)
     expect(linkedList.iterate()).toEqual(['a'])
+  })
+
+  test('insertAfterNode can insert after a certain Node', () => {
+    const bNode = linkedList.head.next.next
+    linkedList.insertAfterNode(bNode, 'x')
+    expect(linkedList.iterate()).toEqual(['a', 'b', 'x', 'c'])
+  })
+
+  test('delete node can delete node from linked list', () => {
+    const aNode = linkedList.head.next
+    linkedList.deleteNode(aNode)
+    expect(linkedList.iterate()).toEqual(['b', 'c'])
+
+    rebuildLinkedList('c', 'b', 'a')
+
+    const bNode = linkedList.head.next.next
+    linkedList.deleteNode(bNode)
+    expect(linkedList.iterate()).toEqual(['a', 'c'])
+
+    rebuildLinkedList('c', 'b', 'a')
+
+    const cNode = linkedList.head.next.next.next
+    linkedList.deleteNode(cNode)
+    expect(linkedList.iterate()).toEqual(['a', 'b'])
+  })
+
+  test('delete node empties out the deleted node', () => {
+    const bNode = linkedList.head.next.next
+    linkedList.deleteNode(bNode)
+    expect(bNode).toEqual({})
   })
 })
