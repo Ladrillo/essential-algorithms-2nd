@@ -4,12 +4,12 @@ function Node(data, next = null) {
 }
 
 function LinkedList() {
-  this.head = null
+  this.head = { next: null } // sentinel
 }
 
 LinkedList.prototype.iterate = function () {
   let values = []
-  let pointer = this.head
+  let pointer = this.head.next // sentinel helps
 
   while (pointer) {
     values.push(pointer.data)
@@ -19,11 +19,11 @@ LinkedList.prototype.iterate = function () {
 }
 
 LinkedList.prototype.insertAtBeginning = function (data) {
-  this.head = new Node(data, this.head)
+  this.head.next = new Node(data, this.head.next)
 }
 
 LinkedList.prototype.findNode = function (data) {
-  let pointer = this.head
+  let pointer = this.head.next
 
   while (pointer) {
     if (pointer.data === data) return pointer
@@ -33,8 +33,6 @@ LinkedList.prototype.findNode = function (data) {
 }
 
 LinkedList.prototype.findNodeBefore = function (data) {
-  if (this.head === null) return null
-
   let pointer = this.head
 
   while (pointer.next) {
@@ -57,7 +55,8 @@ describe('linked lists', () => {
 
   test('LinkedList can make a new Linked List', () => {
     linkedList = new LinkedList()
-    expect(linkedList.head).toBe(null)
+    const sentinel = { next: null }
+    expect(linkedList.head).toEqual(sentinel)
   })
 
   test('insertAtBeginning can insert at the beginning', () => {
@@ -65,10 +64,10 @@ describe('linked lists', () => {
     linkedList.insertAtBeginning('b')
     linkedList.insertAtBeginning('a')
 
-    expect(linkedList.head.data).toBe('a')
-    expect(linkedList.head.next.data).toBe('b')
-    expect(linkedList.head.next.next.data).toBe('c')
-    expect(linkedList.head.next.next.next).toBe(null)
+    expect(linkedList.head.next.data).toBe('a')
+    expect(linkedList.head.next.next.data).toBe('b')
+    expect(linkedList.head.next.next.next.data).toBe('c')
+    expect(linkedList.head.next.next.next.next).toBe(null)
   })
 
   test('iterate can iterate over a Linked List', () => {
@@ -76,25 +75,16 @@ describe('linked lists', () => {
   })
 
   test('findNode can find a node in the Linked List', () => {
-    expect(linkedList.findNode('a')).toEqual(linkedList.head)
-    expect(linkedList.findNode('b')).toEqual(linkedList.head.next)
-    expect(linkedList.findNode('c')).toEqual(linkedList.head.next.next)
+    expect(linkedList.findNode('a')).toEqual(linkedList.head.next)
+    expect(linkedList.findNode('b')).toEqual(linkedList.head.next.next)
+    expect(linkedList.findNode('c')).toEqual(linkedList.head.next.next.next)
     expect(linkedList.findNode('d')).toBe(null)
   })
 
-  test('findNode works even if head is null', () => {
-    const linkedList = new LinkedList()
-    expect(linkedList.findNode('x')).toBe(null)
-  })
-
   test('findNodeBefore can find a node before in the Linked List', () => {
-    expect(linkedList.findNodeBefore('b')).toEqual(linkedList.head)
-    expect(linkedList.findNodeBefore('c')).toEqual(linkedList.head.next)
+    expect(linkedList.findNodeBefore('a')).toEqual(linkedList.head) // sentinel
+    expect(linkedList.findNodeBefore('b')).toEqual(linkedList.head.next)
+    expect(linkedList.findNodeBefore('c')).toEqual(linkedList.head.next.next)
     expect(linkedList.findNodeBefore('d')).toBe(null)
-  })
-
-  test('findNodeBefore works even if head is null', () => {
-    const linkedList = new LinkedList()
-    expect(linkedList.findNodeBefore('x')).toBe(null)
   })
 })
