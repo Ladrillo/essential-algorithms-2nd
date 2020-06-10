@@ -47,6 +47,17 @@ LinkedList.prototype.findNodeBefore = function (data) {
 describe('linked lists', () => {
   let linkedList
 
+  beforeEach(() => rebuildLinkedList('c', 'b', 'a'))
+
+  function rebuildLinkedList(...items) {
+    linkedList = new LinkedList()
+    if (!items.length) return
+
+    items.forEach(item => {
+      linkedList.insertAtBeginning(item)
+    })
+  }
+
   test('Node can make a new node', () => {
     let newNode = new Node('x')
     expect(newNode.data).toBe('x')
@@ -56,10 +67,14 @@ describe('linked lists', () => {
   test('LinkedList can make a new Linked List', () => {
     linkedList = new LinkedList()
     const sentinel = { next: null }
+
     expect(linkedList.head).toEqual(sentinel)
+    expect(linkedList.head.next).toBe(null)
   })
 
   test('insertAtBeginning can insert at the beginning', () => {
+    linkedList = new LinkedList()
+
     linkedList.insertAtBeginning('c')
     linkedList.insertAtBeginning('b')
     linkedList.insertAtBeginning('a')
@@ -78,13 +93,20 @@ describe('linked lists', () => {
     expect(linkedList.findNode('a')).toEqual(linkedList.head.next)
     expect(linkedList.findNode('b')).toEqual(linkedList.head.next.next)
     expect(linkedList.findNode('c')).toEqual(linkedList.head.next.next.next)
-    expect(linkedList.findNode('d')).toBe(null)
+    expect(linkedList.findNode('x')).toBe(null)
   })
 
   test('findNodeBefore can find a node before in the Linked List', () => {
     expect(linkedList.findNodeBefore('a')).toEqual(linkedList.head) // sentinel
     expect(linkedList.findNodeBefore('b')).toEqual(linkedList.head.next)
     expect(linkedList.findNodeBefore('c')).toEqual(linkedList.head.next.next)
-    expect(linkedList.findNodeBefore('d')).toBe(null)
+    expect(linkedList.findNodeBefore('x')).toBe(null)
   })
+
+  // test('insertAtEnd can insert at the end', () => {
+  //   linkedList.insertAtEnd('d')
+
+  //   expect(linkedList.findNode('d').next).toBe(null)
+  //   expect(linkedList.iterate()).toEqual(['a', 'b', 'c', 'd'])
+  // })
 })
