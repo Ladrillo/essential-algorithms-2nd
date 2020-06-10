@@ -22,6 +22,18 @@ LinkedList.prototype.insertAtBeginning = function (data) {
   this.head.next = new Node(data, this.head.next)
 }
 
+LinkedList.prototype.insertAtEnd = function (data) {
+  let pointer = this.head
+
+  while (pointer) {
+    if (pointer.next === null) {
+      pointer.next = new Node(data)
+      return
+    }
+    pointer = pointer.next
+  }
+}
+
 LinkedList.prototype.findNode = function (data) {
   let pointer = this.head.next
 
@@ -103,10 +115,18 @@ describe('linked lists', () => {
     expect(linkedList.findNodeBefore('x')).toBe(null)
   })
 
-  // test('insertAtEnd can insert at the end', () => {
-  //   linkedList.insertAtEnd('d')
+  test('insertAtEnd can insert at the end', () => {
+    linkedList.insertAtEnd('d')
 
-  //   expect(linkedList.findNode('d').next).toBe(null)
-  //   expect(linkedList.iterate()).toEqual(['a', 'b', 'c', 'd'])
-  // })
+    expect(linkedList.findNode('d').next).toBe(null)
+    expect(linkedList.iterate()).toEqual(['a', 'b', 'c', 'd'])
+  })
+
+  test('insertAtEnd works with empty linked list', () => {
+    rebuildLinkedList()
+    linkedList.insertAtEnd('a')
+
+    expect(linkedList.findNode('a').next).toBe(null)
+    expect(linkedList.iterate()).toEqual(['a'])
+  })
 })
