@@ -150,9 +150,6 @@ describe('doubly linked lists', () => {
     dlinkedList.insertSorted(unsorted[0])
     expect(dlinkedList.head.next.data).toBe(unsorted[0])
 
-    console.log(unsorted)
-    console.log(sorted)
-
     dlinkedList.insertSorted(unsorted[1])
     dlinkedList.insertSorted(unsorted[2])
 
