@@ -49,17 +49,21 @@ DLinkedList.prototype.insertAtEnd = function (data) {
 DLinkedList.prototype.insertSorted = function (data) {
   const newNode = new Node(data)
 
-  if (!this.head.next.next) {
-    this.head.next = newNode
-  }
-
   let afterMe
   let beforeMe
   let pointer = this.head
 
-  // while (pointer.next) {
+  if (!pointer.next.next) {
+    afterMe = pointer
+    beforeMe = pointer.next
+  }
 
-  // }
+  // update next links
+  afterMe.next = newNode
+  newNode.next = beforeMe
+  // update prev links
+  newNode.prev = afterMe
+  beforeMe.prev = newNode
 }
 
 describe('doubly linked lists', () => {
