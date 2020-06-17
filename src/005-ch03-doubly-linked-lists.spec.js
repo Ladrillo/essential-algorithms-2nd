@@ -1,4 +1,4 @@
-function Node(data, prev = null, next = null) {
+function Node(data = null, prev = null, next = null) {
   this.data = data
   this.prev = prev
   this.next = next
@@ -13,8 +13,32 @@ function DLinkedList() {
 
   this.head = topSentinel
 }
+DLinkedList.prototype.insertAtBeginning = function (data) {
+  const newNode = new Node(data)
+  const afterMe = this.head
+  const beforeMe = this.head.next
+  // update next links
+  afterMe.next = newNode
+  newNode.next = beforeMe
+  // update prev links
+  newNode.prev = this.head
+  beforeMe.prev = newNode
+}
 
 describe('doubly linked lists', () => {
+  let dlinkedList
+
+  beforeEach(() => rebuildList('c', 'b', 'a'))
+
+  function rebuildList(...items) {
+    dlinkedList = new DLinkedList()
+    if (!items.length) return
+
+    items.forEach(item => {
+      dlinkedList.insertAtBeginning(item)
+    })
+  }
+
   it('can make a Node', () => {
     expect(new Node('foo')).toEqual({ data: 'foo', prev: null, next: null })
   })
@@ -24,5 +48,29 @@ describe('doubly linked lists', () => {
     expect(doublyLinkedList.head.prev).toEqual(null)
     expect(doublyLinkedList.head.next.next).toEqual(null)
     expect(doublyLinkedList.head.next.prev).toEqual(doublyLinkedList.head)
+  }) 
+
+  it('can add nodes at the beginning', () => {
+    const doublyLinkedList = new DLinkedList()
+    doublyLinkedList.insertAtBeginning('c')
+    doublyLinkedList.insertAtBeginning('b')
+    doublyLinkedList.insertAtBeginning('a')
+    expect(doublyLinkedList.head.next.data).toBe('a')
+    expect(doublyLinkedList.head.next.next.data).toBe('b')
+    expect(doublyLinkedList.head.next.next.next.data).toBe('c')
+    expect(doublyLinkedList.head.next.next.next.next.data).toBe(null)
+    expect(doublyLinkedList.head.next.next.next.prev.data).toBe('b')
+    expect(doublyLinkedList.head.next.next.next.prev.prev.data).toBe('a')
+    expect(doublyLinkedList.head.next.next.next.prev.prev.prev.data).toBe(null)
+  })
+
+  it('rebuildList helper works', () => {
+    expect(dlinkedList.head.next.data).toBe('a')
+    expect(dlinkedList.head.next.next.data).toBe('b')
+    expect(dlinkedList.head.next.next.next.data).toBe('c')
+    expect(dlinkedList.head.next.next.next.next.data).toBe(null)
+    expect(dlinkedList.head.next.next.next.prev.data).toBe('b')
+    expect(dlinkedList.head.next.next.next.prev.prev.data).toBe('a')
+    expect(dlinkedList.head.next.next.next.prev.prev.prev.data).toBe(null)
   })
 })
