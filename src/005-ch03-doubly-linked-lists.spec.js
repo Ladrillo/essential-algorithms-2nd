@@ -24,7 +24,6 @@ DLinkedList.prototype.insertAtBeginning = function (data) {
   newNode.prev = this.head
   beforeMe.prev = newNode
 }
-
 DLinkedList.prototype.insertAtEnd = function (data) {
   const newNode = new Node(data)
   let pointer = this.head
@@ -46,6 +45,21 @@ DLinkedList.prototype.insertAtEnd = function (data) {
   // update prev links
   newNode.prev = afterMe
   beforeMe.prev = newNode
+}
+DLinkedList.prototype.insertSorted = function (data) {
+  const newNode = new Node(data)
+
+  if (!this.head.next.next) {
+    this.head.next = newNode
+  }
+
+  let afterMe
+  let beforeMe
+  let pointer = this.head
+
+  // while (pointer.next) {
+
+  // }
 }
 
 describe('doubly linked lists', () => {
@@ -112,14 +126,24 @@ describe('doubly linked lists', () => {
     expect(dlinkedList.head.next.next.next.prev.prev.prev.data).toBe(null)
   })
 
-  // it('insertSorted inserts numbers in order', () => {
-  //   const dlinkedList = new DLinkedList()
+  it('insertSorted inserts numbers in order', () => {
+    const dlinkedList = new DLinkedList()
 
-  //   const num1 = Math.floor(Math.random() * 100)
-  //   const num2 = Math.floor(Math.random() * 100)
-  //   const num3 = Math.floor(Math.random() * 100)
+    const num1 = Math.floor(Math.random() * 100)
+    const num2 = Math.floor(Math.random() * 100)
+    const num3 = Math.floor(Math.random() * 100)
 
-  //   const unsorted = [num1, num2, num3]
-  //   const sorted = [...unsorted].sort((a, b) => a - b)
-  // })
+    const unsorted = [num1, num2, num3]
+    const sorted = [...unsorted].sort((a, b) => a - b)
+
+    dlinkedList.insertSorted(unsorted[0])
+    expect(dlinkedList.head.next.data).toBe(unsorted[0])
+
+    // dlinkedList.insertSorted(unsorted[1])
+    // dlinkedList.insertSorted(unsorted[2])
+
+    // expect(dlinkedList.head.next.data).toBe(sorted[0])
+    // expect(dlinkedList.head.next.data).toBe(sorted[1])
+    // expect(dlinkedList.head.next.data).toBe(sorted[2])
+  })
 })
