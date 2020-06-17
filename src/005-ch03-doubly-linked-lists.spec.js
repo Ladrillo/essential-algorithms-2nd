@@ -25,6 +25,29 @@ DLinkedList.prototype.insertAtBeginning = function (data) {
   beforeMe.prev = newNode
 }
 
+DLinkedList.prototype.insertAtEnd = function (data) {
+  const newNode = new Node(data)
+  let pointer = this.head
+
+  let afterMe
+  let beforeMe
+
+  while (pointer.next) {
+    if (!pointer.next.next) {
+      afterMe = pointer
+      beforeMe = pointer.next
+    }
+    pointer = pointer.next
+  }
+
+  // update next links
+  afterMe.next = newNode
+  newNode.next = beforeMe
+  // update prev links
+  newNode.prev = afterMe
+  beforeMe.prev = newNode
+}
+
 describe('doubly linked lists', () => {
   let dlinkedList
 
@@ -48,7 +71,7 @@ describe('doubly linked lists', () => {
     expect(doublyLinkedList.head.prev).toEqual(null)
     expect(doublyLinkedList.head.next.next).toEqual(null)
     expect(doublyLinkedList.head.next.prev).toEqual(doublyLinkedList.head)
-  }) 
+  })
 
   it('can add nodes at the beginning', () => {
     const doublyLinkedList = new DLinkedList()
@@ -64,6 +87,21 @@ describe('doubly linked lists', () => {
     expect(doublyLinkedList.head.next.next.next.prev.prev.prev.data).toBe(null)
   })
 
+  it('can add nodes at the end', () => {
+    const doublyLinkedList = new DLinkedList()
+    doublyLinkedList.insertAtEnd('a')
+    doublyLinkedList.insertAtEnd('b')
+    doublyLinkedList.insertAtEnd('c')
+    expect(doublyLinkedList.head.next.data).toBe('a')
+    expect(doublyLinkedList.head.next.next.data).toBe('b')
+    expect(doublyLinkedList.head.next.next.next.data).toBe('c')
+    expect(doublyLinkedList.head.next.next.next.next.data).toBe(null)
+    expect(doublyLinkedList.head.next.next.next.prev.data).toBe('b')
+    expect(doublyLinkedList.head.next.next.next.prev.prev.data).toBe('a')
+    expect(doublyLinkedList.head.next.next.next.prev.prev.prev.data).toBe(null)
+  })
+
+
   it('rebuildList helper works', () => {
     expect(dlinkedList.head.next.data).toBe('a')
     expect(dlinkedList.head.next.next.data).toBe('b')
@@ -73,4 +111,15 @@ describe('doubly linked lists', () => {
     expect(dlinkedList.head.next.next.next.prev.prev.data).toBe('a')
     expect(dlinkedList.head.next.next.next.prev.prev.prev.data).toBe(null)
   })
+
+  // it('insertSorted inserts numbers in order', () => {
+  //   const dlinkedList = new DLinkedList()
+
+  //   const num1 = Math.floor(Math.random() * 100)
+  //   const num2 = Math.floor(Math.random() * 100)
+  //   const num3 = Math.floor(Math.random() * 100)
+
+  //   const unsorted = [num1, num2, num3]
+  //   const sorted = [...unsorted].sort((a, b) => a - b)
+  // })
 })
