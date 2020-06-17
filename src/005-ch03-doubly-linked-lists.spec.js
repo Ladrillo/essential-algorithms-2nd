@@ -53,9 +53,16 @@ DLinkedList.prototype.insertSorted = function (data) {
   let beforeMe
   let pointer = this.head
 
-  if (!pointer.next.next) {
-    afterMe = pointer
-    beforeMe = pointer.next
+  while (pointer) {
+    const nextIsEndSentinel = pointer.next.data === null
+    const nextHasBiggerData = pointer.next.data > data
+
+    if (nextIsEndSentinel || nextHasBiggerData) {
+      afterMe = pointer
+      beforeMe = pointer.next
+      break
+    }
+    pointer = pointer.next
   }
 
   // update next links
@@ -133,9 +140,9 @@ describe('doubly linked lists', () => {
   it('insertSorted inserts numbers in order', () => {
     const dlinkedList = new DLinkedList()
 
-    const num1 = Math.floor(Math.random() * 100)
-    const num2 = Math.floor(Math.random() * 100)
-    const num3 = Math.floor(Math.random() * 100)
+    const num1 = Math.floor(Math.random() * 10)
+    const num2 = Math.floor(Math.random() * 10)
+    const num3 = Math.floor(Math.random() * 10)
 
     const unsorted = [num1, num2, num3]
     const sorted = [...unsorted].sort((a, b) => a - b)
@@ -143,11 +150,18 @@ describe('doubly linked lists', () => {
     dlinkedList.insertSorted(unsorted[0])
     expect(dlinkedList.head.next.data).toBe(unsorted[0])
 
-    // dlinkedList.insertSorted(unsorted[1])
-    // dlinkedList.insertSorted(unsorted[2])
+    console.log(unsorted)
+    console.log(sorted)
 
-    // expect(dlinkedList.head.next.data).toBe(sorted[0])
-    // expect(dlinkedList.head.next.data).toBe(sorted[1])
-    // expect(dlinkedList.head.next.data).toBe(sorted[2])
+    dlinkedList.insertSorted(unsorted[1])
+    dlinkedList.insertSorted(unsorted[2])
+
+    expect(dlinkedList.head.next.data).toBe(sorted[0])
+    expect(dlinkedList.head.next.next.data).toBe(sorted[1])
+    expect(dlinkedList.head.next.next.next.data).toBe(sorted[2])
+    expect(dlinkedList.head.next.next.next.next.data).toBe(null)
+    expect(dlinkedList.head.next.next.next.prev.data).toBe(sorted[1])
+    expect(dlinkedList.head.next.next.next.prev.prev.data).toBe(sorted[0])
+    expect(dlinkedList.head.next.next.next.prev.prev.prev.data).toBe(null)
   })
 })
