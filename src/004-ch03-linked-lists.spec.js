@@ -17,11 +17,9 @@ LinkedList.prototype.iterate = function () {
   }
   return values
 }
-
 LinkedList.prototype.insertAtBeginning = function (data) {
   this.head.next = new Node(data, this.head.next)
 }
-
 LinkedList.prototype.insertAtEnd = function (data) {
   let pointer = this.head
 
@@ -33,12 +31,10 @@ LinkedList.prototype.insertAtEnd = function (data) {
     pointer = pointer.next
   }
 }
-
 LinkedList.prototype.insertAfterNode = function (node, data) {
   const newNode = new Node(data, node.next)
   node.next = newNode
 }
-
 LinkedList.prototype.deleteNode = function (node) {
   let pointer = this.head
 
@@ -52,7 +48,6 @@ LinkedList.prototype.deleteNode = function (node) {
     pointer = pointer.next
   }
 }
-
 LinkedList.prototype.findNode = function (data) {
   let pointer = this.head.next
 
@@ -62,7 +57,6 @@ LinkedList.prototype.findNode = function (data) {
   }
   return null
 }
-
 LinkedList.prototype.findNodeBefore = function (data) {
   let pointer = this.head
 
