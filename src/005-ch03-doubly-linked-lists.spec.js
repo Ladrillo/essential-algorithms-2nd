@@ -76,15 +76,13 @@ DLinkedList.prototype.findNodeMTF = function (data) {
   let pointer = this.head
   while (pointer.next) {
     if (pointer.data === data) {
-      // connect before and after
-      let beforeNode = pointer.prev
-      let afterNode = pointer.next
-      beforeNode.next = afterNode
-      afterNode.prev = beforeNode
-
       if (pointer !== this.head.next) {
-        console.log('this happens')
         // MOVE THE FOUND NODE TO THE FRONT OF THE LIST
+        // connect before and after
+        let beforeNode = pointer.prev
+        let afterNode = pointer.next
+        beforeNode.next = afterNode
+        afterNode.prev = beforeNode
         // put node after top sentinel
         beforeNode = this.head
         afterNode = this.head.next
@@ -95,7 +93,6 @@ DLinkedList.prototype.findNodeMTF = function (data) {
         pointer.prev = beforeNode
         afterNode.prev = pointer
       }
-
       return pointer
     }
     pointer = pointer.next
@@ -204,14 +201,13 @@ describe('doubly linked lists', () => {
   })
 
   it('findNodeMTF moves the latest node searched to the front of the list', () => {
-    rebuildList(1, 2, 3, 4, 5)
+    rebuildList(1, 2, 3, 4)
 
-    expect(dlinkedList.head.next.data).toBe(5)
-    expect(dlinkedList.head.next.next.data).toBe(4)
-    expect(dlinkedList.head.next.next.next.data).toBe(3)
-    expect(dlinkedList.head.next.next.next.next.data).toBe(2)
-    expect(dlinkedList.head.next.next.next.next.next.data).toBe(1)
-    expect(dlinkedList.head.next.next.next.next.next.next.data).toBe(null)
+    expect(dlinkedList.head.next.data).toBe(4)
+    expect(dlinkedList.head.next.next.data).toBe(3)
+    expect(dlinkedList.head.next.next.next.data).toBe(2)
+    expect(dlinkedList.head.next.next.next.next.data).toBe(1)
+    expect(dlinkedList.head.next.next.next.next.next.data).toBe(null)
 
     dlinkedList.findNodeMTF(5)
     dlinkedList.findNodeMTF(4)
@@ -223,7 +219,11 @@ describe('doubly linked lists', () => {
     expect(dlinkedList.head.next.next.data).toBe(2)
     expect(dlinkedList.head.next.next.next.data).toBe(3)
     expect(dlinkedList.head.next.next.next.next.data).toBe(4)
-    expect(dlinkedList.head.next.next.next.next.next.data).toBe(5)
-    expect(dlinkedList.head.next.next.next.next.next.next.data).toBe(null)
+    expect(dlinkedList.head.next.next.next.next.next.data).toBe(null)
+    expect(dlinkedList.head.next.next.next.next.next.prev.data).toBe(4)
+    expect(dlinkedList.head.next.next.next.next.next.prev.prev.data).toBe(3)
+    expect(dlinkedList.head.next.next.next.next.next.prev.prev.prev.data).toBe(2)
+    expect(dlinkedList.head.next.next.next.next.next.prev.prev.prev.prev.data).toBe(1)
+    expect(dlinkedList.head.next.next.next.next.next.prev.prev.prev.prev.prev.data).toBe(null)
   })
 })
