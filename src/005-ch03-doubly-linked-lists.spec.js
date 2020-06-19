@@ -72,6 +72,36 @@ DLinkedList.prototype.insertSorted = function (data) {
   newNode.prev = afterMe
   beforeMe.prev = newNode
 }
+DLinkedList.prototype.findNodeMTF = function (data) {
+  let pointer = this.head
+  while (pointer.next) {
+    if (pointer.data === data) {
+      // connect before and after
+      let beforeNode = pointer.prev
+      let afterNode = pointer.next
+      beforeNode.next = afterNode
+      afterNode.prev = beforeNode
+
+      if (pointer !== this.head.next) {
+        console.log('this happens')
+        // MOVE THE FOUND NODE TO THE FRONT OF THE LIST
+        // put node after top sentinel
+        beforeNode = this.head
+        afterNode = this.head.next
+        // update next links
+        beforeNode.next = pointer
+        pointer.next = afterNode
+        // update prev links
+        pointer.prev = beforeNode
+        afterNode.prev = pointer
+      }
+
+      return pointer
+    }
+    pointer = pointer.next
+  }
+  return null
+}
 
 describe('doubly linked lists', () => {
   let dlinkedList
@@ -160,5 +190,40 @@ describe('doubly linked lists', () => {
     expect(dlinkedList.head.next.next.next.prev.data).toBe(sorted[1])
     expect(dlinkedList.head.next.next.next.prev.prev.data).toBe(sorted[0])
     expect(dlinkedList.head.next.next.next.prev.prev.prev.data).toBe(null)
+  })
+
+  it('findNodeMTF finds node by data', () => {
+    rebuildList(1, 2, 3, 4, 5)
+    const nodeFive = dlinkedList.head.next
+    expect(dlinkedList.findNodeMTF(5)).toEqual(nodeFive)
+  })
+
+  it('findNodeMTF returns null if data not found', () => {
+    rebuildList(1, 2, 3, 4, 5)
+    expect(dlinkedList.findNodeMTF(6)).toEqual(null)
+  })
+
+  it('findNodeMTF moves the latest node searched to the front of the list', () => {
+    rebuildList(1, 2, 3, 4, 5)
+
+    expect(dlinkedList.head.next.data).toBe(5)
+    expect(dlinkedList.head.next.next.data).toBe(4)
+    expect(dlinkedList.head.next.next.next.data).toBe(3)
+    expect(dlinkedList.head.next.next.next.next.data).toBe(2)
+    expect(dlinkedList.head.next.next.next.next.next.data).toBe(1)
+    expect(dlinkedList.head.next.next.next.next.next.next.data).toBe(null)
+
+    dlinkedList.findNodeMTF(5)
+    dlinkedList.findNodeMTF(4)
+    dlinkedList.findNodeMTF(3)
+    dlinkedList.findNodeMTF(2)
+    dlinkedList.findNodeMTF(1)
+
+    expect(dlinkedList.head.next.data).toBe(1)
+    expect(dlinkedList.head.next.next.data).toBe(2)
+    expect(dlinkedList.head.next.next.next.data).toBe(3)
+    expect(dlinkedList.head.next.next.next.next.data).toBe(4)
+    expect(dlinkedList.head.next.next.next.next.next.data).toBe(5)
+    expect(dlinkedList.head.next.next.next.next.next.next.data).toBe(null)
   })
 })
