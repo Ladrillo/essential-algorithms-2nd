@@ -74,6 +74,20 @@ LinkedList.prototype.findNodeBefore = function (data) {
   }
   return null
 }
+LinkedList.prototype.copy = function () {
+  const newList = new LinkedList()
+
+  let oldNode = this.head.next
+  let latestAdded = newList.head
+
+  while (oldNode) {
+    const newNode = new Node(oldNode.data)
+    latestAdded.next = newNode
+    oldNode = oldNode.next
+    latestAdded = newNode
+  }
+  return newList
+}
 
 describe('linked lists', () => {
   let linkedList
@@ -177,5 +191,25 @@ describe('linked lists', () => {
     const bNode = linkedList.head.next.next
     linkedList.deleteNode(bNode)
     expect(bNode).toEqual({})
+  })
+
+  test('copy returns an instance of Linked List', () => {
+    const copy = linkedList.copy()
+    expect(copy).toBeInstanceOf(LinkedList)
+  })
+
+  test('copy returns a different instance of LinkedList', () => {
+    const copy = linkedList.copy()
+    expect(copy).not.toBe(linkedList)
+  })
+
+  test('copy returns a copy', () => {
+    const copy = linkedList.copy()
+    expect(copy).toEqual(linkedList)
+
+    expect(copy.head.next.data).toBe('a')
+    expect(copy.head.next.next.data).toBe('b')
+    expect(copy.head.next.next.next.data).toBe('c')
+    expect(copy.head.next.next.next.next).toBe(null)
   })
 })
