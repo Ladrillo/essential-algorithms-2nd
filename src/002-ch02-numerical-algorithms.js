@@ -60,7 +60,6 @@ else toss twice again
 
 // 4- REDUCING THE RANGE OF A PRNG - Simply ignore results falling out of scope
 
-
 // 5- EXPANDING THE RANGE OF A PRNG - Toss repeatedly to construct a binary number
 export function whoWinsThePrize(friendsNumber) {
   let binaryNumber = ''
@@ -79,8 +78,6 @@ export function whoWinsThePrize(friendsNumber) {
   }
   return friendIndex + 1
 }
-
-
 
 // 6- RANDOMIZING ARRAYS
 export function randomizeArray(arr) {
@@ -102,7 +99,6 @@ export function randomizeArray(arr) {
   return result
 }
 
-
 // We can use this technique for drawing multiple winners out of a list
 export function drawWinners(entries, numberOfPrizes) {
   const randomizedEntries = randomizeArray(entries)
@@ -110,7 +106,6 @@ export function drawWinners(entries, numberOfPrizes) {
 
   return result
 }
-
 
 // 7- GENERATING NON-UNIFORM DISTRIBUTIONS
 export function pickItemWithProbabilities(items, probabilities) {
@@ -172,8 +167,6 @@ export function exponentiate(value, exponent) {
   return result
 }
 
-
-
 // 11- FINDING PRIME FACTORS 
 
 // naive implementation
@@ -191,7 +184,6 @@ export function findFactors(number) {
   if (number > 1) factors.push(number)
   return factors
 }
-
 
 // less naive implementation
 export function findFactorsImproved(number) {
@@ -281,8 +273,6 @@ export function getAreaUsingTrapezoids(curve, { xMin, xMax }, intervals) {
   }
   return totalArea
 }
-
-
 
 // TRAPEZOIDS RECURSIVE
 export function getAreaUsingTrapezoidsAdaptive(curve, { xMin, xMax }, intervals, maxError) {
