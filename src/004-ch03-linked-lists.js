@@ -115,5 +115,13 @@ LinkedList.prototype.hasALoop = function () {
     }
   }
 
+  // now we need to clean up the "visited" markings
+  pointer = this.head
+
+  while (pointer) {
+    delete pointer.visited
+    pointer = pointer.next
+  }
+
   return hasALoop
 }

@@ -158,5 +158,8 @@ describe('Linked Lists', () => {
   test('hasLoop cleans those "visited" marks on the nodes', () => {
     linkedList.hasALoop()
     expect(linkedList.head.visited).toBe(undefined)
+    expect(linkedList.head.next.visited).toBe(undefined)
+    expect(linkedList.head.next.next.visited).toBe(undefined)
+    expect(linkedList.head.next.next.next.visited).toBe(undefined)
   })
 })
