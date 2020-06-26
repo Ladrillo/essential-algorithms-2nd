@@ -27,7 +27,7 @@ LinkedList.prototype.insertAtBeginning = function (data) {
   }
 }
 
-LinkedList.prototype.insertAtEnd = function (data) {
+LinkedList.prototype.insertAtEnd = function (data, loop) {
   let pointer = this.head
 
   while (pointer) {
@@ -35,6 +35,9 @@ LinkedList.prototype.insertAtEnd = function (data) {
       pointer.next = data instanceof Node
         ? data
         : new Node(data)
+      if (loop) {
+        pointer.next.next = this.head
+      }
       return
     }
     pointer = pointer.next

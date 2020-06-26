@@ -74,6 +74,14 @@ describe('Linked Lists', () => {
     expect(linkedList.iterate()).toEqual(['a'])
   })
 
+  test('insertAtEnd can make a loop', () => {
+    rebuildLinkedList('b', 'a')
+    linkedList.insertAtEnd('c', true)
+    expect(linkedList.head.next.next.next.data).toBe('c')
+    expect(linkedList.head.next.next.next.next.data).toBe(undefined) // sentinel
+    expect(linkedList.head.next.next.next.next.next.data).toBe('a')
+  })
+
   test('insertAfterNode can insert after a certain Node', () => {
     const bNode = linkedList.head.next.next
     linkedList.insertAfterNode(bNode, 'x')
