@@ -77,9 +77,14 @@ describe('Linked Lists', () => {
   test('insertAtEnd can make a loop', () => {
     rebuildLinkedList('b', 'a')
     linkedList.insertAtEnd('c', true)
+    expect(linkedList.head.next.data).toBe('a')
+    expect(linkedList.head.next.next.data).toBe('b')
+    expect(linkedList.head.next.next.next.data).toBe('c')
     expect(linkedList.head.next.next.next.data).toBe('c')
     expect(linkedList.head.next.next.next.next.data).toBe(undefined) // sentinel
-    expect(linkedList.head.next.next.next.next.next.data).toBe('a')
+    expect(linkedList.head.next.next.next.next.next.data).toBe('a') // second lap
+    expect(linkedList.head.next.next.next.next.next.next.data).toBe('b')
+    expect(linkedList.head.next.next.next.next.next.next.next.data).toBe('c')
   })
 
   test('insertAfterNode can insert after a certain Node', () => {
@@ -132,7 +137,21 @@ describe('Linked Lists', () => {
     expect(copy.head.next.next.next.next).toBe(null)
   })
 
-  test('hasALoop can detect whether a LinkedList has a loop', () => {
+  test('hasALoop can detect LinkedList with no loop correctly', () => {
     expect(linkedList.hasALoop()).toBe(false)
+  })
+
+  test('hasALoop can detect LinkedList with loop correctly', () => {
+    rebuildLinkedList('b', 'a')
+    linkedList.insertAtEnd('c', true)
+    expect(linkedList.hasALoop()).toBe(true)
+  })
+
+  test('hasALoop can break the loop', () => {
+    rebuildLinkedList('b', 'a')
+    linkedList.insertAtEnd('c', true)
+    linkedList.hasALoop()
+    expect(linkedList.head.next.next.next.data).toBe('c')
+    expect(linkedList.head.next.next.next.next).toBe(null) // sentinel
   })
 })

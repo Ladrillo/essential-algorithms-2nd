@@ -101,5 +101,16 @@ LinkedList.prototype.copy = function () {
 }
 
 LinkedList.prototype.hasALoop = function () {
+  let pointer = this.head
+
+  while (pointer.next) {
+    if (pointer.next.visited) {
+      pointer.next = null
+      return true
+    } else {
+      pointer.visited = true
+      pointer = pointer.next
+    }
+  }
   return false
 }
