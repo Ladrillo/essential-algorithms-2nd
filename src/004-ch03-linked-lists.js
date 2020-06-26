@@ -19,7 +19,12 @@ LinkedList.prototype.iterate = function () {
 }
 
 LinkedList.prototype.insertAtBeginning = function (data) {
-  this.head.next = new Node(data, this.head.next)
+  if (data instanceof Node) {
+    data.next = this.head.next
+    this.head.next = data
+  } else {
+    this.head.next = new Node(data, this.head.next)
+  }
 }
 
 LinkedList.prototype.insertAtEnd = function (data) {
@@ -27,7 +32,9 @@ LinkedList.prototype.insertAtEnd = function (data) {
 
   while (pointer) {
     if (pointer.next === null) {
-      pointer.next = new Node(data)
+      pointer.next = data instanceof Node
+        ? data
+        : new Node(data)
       return
     }
     pointer = pointer.next
