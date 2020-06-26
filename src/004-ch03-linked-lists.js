@@ -99,3 +99,7 @@ LinkedList.prototype.copy = function () {
   }
   return newList
 }
+
+LinkedList.prototype.hasALoop = function () {
+  return false
+}

@@ -131,4 +131,8 @@ describe('Linked Lists', () => {
     expect(copy.head.next.next.next.data).toBe('c')
     expect(copy.head.next.next.next.next).toBe(null)
   })
+
+  test('hasALoop can detect whether a LinkedList has a loop', () => {
+    expect(linkedList.hasALoop()).toBe(false)
+  })
 })
