@@ -102,15 +102,18 @@ LinkedList.prototype.copy = function () {
 
 LinkedList.prototype.hasALoop = function () {
   let pointer = this.head
+  let hasALoop = false
 
   while (pointer.next) {
     if (pointer.next.visited) {
       pointer.next = null
-      return true
+      hasALoop = true
+      break
     } else {
       pointer.visited = true
       pointer = pointer.next
     }
   }
-  return false
+
+  return hasALoop
 }

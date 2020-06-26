@@ -154,4 +154,9 @@ describe('Linked Lists', () => {
     expect(linkedList.head.next.next.next.data).toBe('c')
     expect(linkedList.head.next.next.next.next).toBe(null) // sentinel
   })
+
+  test('hasLoop cleans those "visited" marks on the nodes', () => {
+    linkedList.hasALoop()
+    expect(linkedList.head.visited).toBe(undefined)
+  })
 })
