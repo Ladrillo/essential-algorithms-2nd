@@ -168,9 +168,9 @@ LinkedList.prototype.reverse = function () {
       this.head = { next: pointer }
     }
     const theNextOne = pointer.next
-    pointer.next = prev === this.head
+    pointer.next = (prev === this.head)
       ? null // to erase the sentinel on the first iteration
-      : prev
+      : prev // flip the next backwards otherwise
 
     prev = pointer
     pointer = theNextOne
