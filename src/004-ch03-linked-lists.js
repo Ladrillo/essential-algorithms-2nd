@@ -122,7 +122,6 @@ LinkedList.prototype.hasALoop = function () {
     delete pointer.visited
     pointer = pointer.next
   }
-
   return hasALoop
 }
 
@@ -157,6 +156,5 @@ LinkedList.prototype.hasALoopTracer = function () {
     }
     leader = leader.next
   }
-
   return false
 }
