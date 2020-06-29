@@ -158,3 +158,22 @@ LinkedList.prototype.hasALoopTracer = function () {
   }
   return false
 }
+
+LinkedList.prototype.reverse = function () {
+  let pointer = this.head.next
+  let prev = this.head
+
+  while (pointer) {
+    if (pointer.next === null) {
+      this.head = { next: pointer }
+    }
+    const theNextOne = pointer.next
+    pointer.next = prev === this.head
+      ? null // to erase the sentinel on the first iteration
+      : prev
+
+    prev = pointer
+    pointer = theNextOne
+  }
+  return this
+}

@@ -182,4 +182,17 @@ describe('Linked Lists', () => {
     linkedList.insertAtEnd('c', true)
     expect(linkedList.hasALoopTracer()).toBe(true)
   })
+
+  test('reverse returns the same linked list', () => {
+    expect(linkedList.reverse()).toBe(linkedList)
+  })
+
+  test('reverse reverses', () => {
+    linkedList.reverse()
+    expect(linkedList.head.data).toBe(undefined)
+    expect(linkedList.head.next.data).toBe('c')
+    expect(linkedList.head.next.next.data).toBe('b')
+    expect(linkedList.head.next.next.next.data).toBe('a')
+    expect(linkedList.head.next.next.next.next).toBe(null)
+  })
 })
