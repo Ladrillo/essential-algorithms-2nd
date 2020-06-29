@@ -162,4 +162,14 @@ describe('Linked Lists', () => {
     expect(linkedList.head.next.next.visited).toBe(undefined)
     expect(linkedList.head.next.next.next.visited).toBe(undefined)
   })
+
+  test('hasALoopHashTable can detect LinkedList with no loop correctly', () => {
+    expect(linkedList.hasALoopHashTable()).toBe(false)
+  })
+
+  test('hasALoop can detect LinkedList with loop correctly', () => {
+    rebuildLinkedList('b', 'a')
+    linkedList.insertAtEnd('c', true)
+    expect(linkedList.hasALoopHashTable()).toBe(true)
+  })
 })

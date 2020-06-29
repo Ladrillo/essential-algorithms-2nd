@@ -106,7 +106,7 @@ LinkedList.prototype.hasALoop = function () {
 
   while (pointer.next) {
     if (pointer.next.visited) {
-      pointer.next = null
+      pointer.next = null // breaking the loop
       hasALoop = true
       break
     } else {
@@ -124,4 +124,19 @@ LinkedList.prototype.hasALoop = function () {
   }
 
   return hasALoop
+}
+
+LinkedList.prototype.hasALoopHashTable = function () {
+  let pointer = this.head
+  let hashTable = []
+
+  while (pointer.next) {
+    if (hashTable.includes(pointer.next)) {
+      return true
+    } else {
+      hashTable.push(pointer.next)
+      pointer = pointer.next
+    }
+  }
+  return false
 }
