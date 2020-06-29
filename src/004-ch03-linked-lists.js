@@ -147,6 +147,8 @@ LinkedList.prototype.hasALoopTracer = function () {
   while (leader) {
     let tracer = this.head
     while (tracer !== leader) {
+      // if tracer catches up with leader.next
+      // there must be a loop
       if (tracer === leader.next) {
         return true
       } else {
