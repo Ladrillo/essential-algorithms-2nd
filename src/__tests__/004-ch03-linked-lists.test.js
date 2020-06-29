@@ -167,9 +167,19 @@ describe('Linked Lists', () => {
     expect(linkedList.hasALoopHashTable()).toBe(false)
   })
 
-  test('hasALoop can detect LinkedList with loop correctly', () => {
+  test('hasALoopHashTable can detect LinkedList with loop correctly', () => {
     rebuildLinkedList('b', 'a')
     linkedList.insertAtEnd('c', true)
     expect(linkedList.hasALoopHashTable()).toBe(true)
+  })
+
+  test('hasALoopTracer can detect LinkedList with no loop correctly', () => {
+    expect(linkedList.hasALoopTracer()).toBe(false)
+  })
+
+  test('hasALoopTracer can detect LinkedList with loop correctly', () => {
+    rebuildLinkedList('b', 'a')
+    linkedList.insertAtEnd('c', true)
+    expect(linkedList.hasALoopTracer()).toBe(true)
   })
 })

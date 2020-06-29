@@ -140,3 +140,21 @@ LinkedList.prototype.hasALoopHashTable = function () {
   }
   return false
 }
+
+LinkedList.prototype.hasALoopTracer = function () {
+  let leader = this.head.next
+
+  while (leader) {
+    let tracer = this.head
+    while (tracer !== leader) {
+      if (tracer === leader.next) {
+        return true
+      } else {
+        tracer = tracer.next
+      }
+    }
+    leader = leader.next
+  }
+
+  return false
+}
