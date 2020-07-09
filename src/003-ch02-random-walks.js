@@ -181,14 +181,14 @@ function makeCompleteSelfAvoidingWalk(canvasLength, canvasHeight, log) {
 }
 
 {
-  const gridSize = [36, 36]
-  const stepSize = 20
-  const points = makeRandomWalk(2000, ...gridSize)
+  const gridSize = [5, 5]
+  const stepSize = 25
+  const points = makeRandomWalk(50, ...gridSize)
   drawPoints({ gridSize, stepSize, points })
 }
 {
-  const gridSize = [6, 6]
-  const stepSize = 20
+  const gridSize = [5, 5]
+  const stepSize = 25
   const points = makeNonIntersectingRandomWalk(...gridSize)
   drawPoints({ gridSize, stepSize, points })
 }
